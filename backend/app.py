@@ -1,10 +1,12 @@
 from crypt import methods
 from flask import Flask
-
+from database import connect
 app = Flask(__name__)
+
 
 @app.route("/helloWorld", methods=['GET'])
 def helloWorld():
+    conn = connect()
     return 'hello world'
 
 

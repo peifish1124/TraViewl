@@ -12,6 +12,8 @@ hotel review search system
 ``` source TraViewl-backend-env/bin/activate ```
 4. 下載flask
 ``` pip3 install flask``` 
+5. 下載 psycopg2
+```pip3 install psycopg2-binary```
  <br>
  <br>
 
