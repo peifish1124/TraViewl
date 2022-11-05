@@ -32,7 +32,7 @@ hotel review search system
 
 1. 照 create history 1,2,3 步驟先建置並進入 python 虛擬環境
 2. 下載所需套件
-   ` pip3 -r requirements.txt`
+   ` pip3 install -r requirements.txt`
 3. 打開後端
    ` python3 app.py`
 4. 測試（得到 hello world 即可）
