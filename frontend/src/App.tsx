@@ -1,25 +1,73 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import logo from "./logo.svg";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import "./App.css";
+import TopBar from "./components/TopBar";
+import useScrollTrigger from "@mui/material/useScrollTrigger";
+import Home from "./pages/Home";
+import { Box, Container } from "@mui/material";
 
-function App() {
+function App(props: any) {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <React.Fragment>
+      <TopBar></TopBar>
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<Home />} />
+        </Routes>
+      </BrowserRouter>
+      {/* <Container>
+        <Box sx={{ my: 2 }}>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1> <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+          <h1>ho</h1>
+        </Box>
+      </Container> */}
+    </React.Fragment>
+    // <React.Fragment>
+    //   <CssBaseline />
+    //   <TopBar {...props} />
+    //   <BrowserRouter>
+    //     <Routes>
+    //       <Route path="/" element={<Home />} />
+    //     </Routes>
+    //   </BrowserRouter>
+    // </React.Fragment>
   );
 }
 
