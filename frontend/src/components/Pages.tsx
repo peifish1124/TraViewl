@@ -1,36 +1,31 @@
+import { Container } from "@mui/material";
 import styled from "styled-components";
 
 export const Background = styled.div`
+  flex: 1;
   display: flex;
-  margintop: 20px;
-  flex-direction: row;
-  background-position: fixed;
-  overflow: auto;
-  justify-content: center;
-  background-color: transparent;
-  @media (max-width: 1900px) {
-    height: 70em;
-  }
-  @media (max-width: 1300px) {
-    height: 70em;
-  }
-  &::-webkit-scrollbar {
-    height: inherit;
-    width: 7px;
-    border-radius: 6px;
-  }
+  flex-direction: column;
+  padding: 0;
+  background: #d1d1d1;
+  width: 100%;
+  align-items: center;
 `;
+
 export const CenterDiv = styled.div`
   display: flex;
   flex-direction: column;
-  // flex-direction: row;
   width: 80%;
   max-width: 1200px;
   min-width: 500px;
-  height: 800px;
   background: transparent;
   align-items: center;
-  // justify-content: center;
+`;
+
+export const Wrap = styled.div`
+  display: flex;
+  width: 100%;
+  flex-wrap: wrap;
+  justify-content: center;
 `;
 
 export const MainDiv = styled.div`
