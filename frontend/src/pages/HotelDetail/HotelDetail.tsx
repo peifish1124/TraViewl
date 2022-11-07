@@ -2,11 +2,26 @@ import { Toolbar } from "@mui/material";
 import { stat } from "fs";
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
-import { Background, CenterDiv } from "../../components/Pages";
+import { Background, CenterDiv, Wrap } from "../../components/Pages";
 import TitleBar from "../../components/TitleBar";
-import { SentimentRatioCard } from "./Components";
+import { SentimentRatioCard, KeywordsCard } from "./Components";
+import sentimentRatios from "../../assets/temp/sentimentRatio";
 import hotels from "../../assets/temp/hotel";
 import { Hotel } from "../../models/Hotel";
+import styled from "styled-components";
+
+const TitleCard = styled.div`
+  background-color: #ffffff;
+  margin-top: -60px;
+  font-size: 30px;
+  padding: 60px;
+  text-align: center;
+  text-justify: auto;
+  word-wrap: break-word;
+  text-overflow: ellipsis;
+  color: #464646;
+  margin-bottom: 90px;
+`;
 
 export default function HotelDetail(props: any, state: any) {
   const location = useLocation();
@@ -28,7 +43,7 @@ export default function HotelDetail(props: any, state: any) {
           width="100%"
           height="400px"
         ></img>
-        <div
+        {/* <div
           style={{
             backgroundColor: "#FFFFFF",
             marginTop: -30,
@@ -39,13 +54,18 @@ export default function HotelDetail(props: any, state: any) {
             wordWrap: "break-word",
             textOverflow: "ellipsis",
             color: "#464646",
+            marginBottom: 30,
           }}
-        >
-          {hotelInfo?.Name}
-        </div>
+        > */}
+        <TitleCard>{hotelInfo?.Name}</TitleCard>
+
+        {/* </div> */}
         <CenterDiv>
-          {/* <h1>HotelDetail</h1> */}
-          {/* <SentimentRatioCard /> */}
+          <Wrap>
+            <SentimentRatioCard data={sentimentRatios} />
+            <KeywordsCard />
+          </Wrap>
+          <br />
         </CenterDiv>
       </Background>
     </>
