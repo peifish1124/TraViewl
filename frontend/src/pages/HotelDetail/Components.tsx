@@ -1,3 +1,4 @@
+import { remToPx } from "polished";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { SentimentRatio } from "../../models/SentimentRatio";
@@ -62,7 +63,25 @@ const Bar = styled.div<IBarStyled>`
     )};
     flex: ${props => props.flex};
     margin: 0 2px;
+    position: relative;
+    display: flex;
+    justify-content: center;
 `
+
+const Reminder = styled.p`
+    position: absolute;
+    top: -145%;
+    background-color: #D9D9D9;
+    white-space: nowrap;
+    padding: 0 5px;
+    display: none;
+    
+    ${Bar}:hover & {
+        display: block;
+    }
+`;
+
+
 
 export function SentimentRatioCard(props?: SentimentRatioCardProps) {
     const data = props?.data;
@@ -74,9 +93,15 @@ export function SentimentRatioCard(props?: SentimentRatioCardProps) {
                 <SRow key={row.aspect}>
                     <SText>{row.aspect}</SText>
                     <SBarDiv>
-                        <Bar type="positive" flex={row.positive} />
-                        <Bar type="neutral" flex={row.neutral} />
-                        <Bar type="negative" flex={row.negative} />
+                        <Bar type="positive" flex={row.positive}>
+                            <Reminder>正向, {row.positive}%</Reminder>
+                        </Bar>
+                        <Bar type="neutral" flex={row.neutral}>
+                            <Reminder>中性, {row.neutral}%</Reminder>
+                        </Bar>
+                        <Bar type="negative" flex={row.negative}>
+                            <Reminder>負向, {row.negative}%</Reminder>
+                        </Bar>
                     </SBarDiv>
                 </SRow>
             ))}</SMain>
