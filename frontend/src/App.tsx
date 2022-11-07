@@ -6,6 +6,7 @@ import TopBar from "./components/TopBar";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
 import Home from "./pages/Home/Home";
 import { Box, Container } from "@mui/material";
+import HotelDetail from "./pages/HotelDetail/HotelDetail";
 
 function App(props: any) {
   return (
@@ -14,6 +15,7 @@ function App(props: any) {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/hotelDetail" element={<HotelDetail />} />
         </Routes>
       </BrowserRouter>
     </React.Fragment>
