@@ -28,6 +28,11 @@ const sentimentRatios: SentimentRatio[] = [
         positive: 50,
         neutral: 40,
         negative: 10
+    },{
+        aspect: "健身房",
+        positive: 50,
+        neutral: 40,
+        negative: 10
     }
 ]
 

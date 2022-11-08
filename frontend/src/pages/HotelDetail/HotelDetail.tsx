@@ -9,6 +9,8 @@ import sentimentRatios from "../../assets/temp/sentimentRatio";
 import hotels from "../../assets/temp/hotel";
 import { Hotel } from "../../models/Hotel";
 import styled from "styled-components";
+import keywords from "../../assets/temp/keyword";
+
 
 const TitleCard = styled.div`
   background-color: #ffffff;
@@ -63,7 +65,7 @@ export default function HotelDetail(props: any, state: any) {
         <CenterDiv>
           <Wrap>
             <SentimentRatioCard data={sentimentRatios} />
-            <KeywordsCard />
+            <KeywordsCard data={keywords} />
           </Wrap>
           <br />
         </CenterDiv>
