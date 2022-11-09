@@ -56,10 +56,8 @@ export default function HotelDetail(props: any, state: any) {
           <Wrap style={{ marginTop: 20 }}>
             <AmountCard data={amounts} />
           </Wrap>
-          <Wrap>
+          <Wrap style={{ marginTop: 20 }}>
             <ScoresCard data={scoreCnts} />
-          </Wrap>
-          <Wrap>
             <AspectReviewCard />
           </Wrap>
         </CenterDiv>
