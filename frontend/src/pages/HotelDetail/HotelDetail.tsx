@@ -9,6 +9,8 @@ import {
   KeywordsCard,
   TitleCard,
   AspectCard,
+  ScoresCard,
+  AspectReviewCard,
 } from "./Components";
 import sentimentRatios from "../../assets/temp/sentimentRatio";
 import hotels from "../../assets/temp/hotel";
@@ -16,6 +18,7 @@ import { Hotel } from "../../models/Hotel";
 import styled from "styled-components";
 import keywords from "../../assets/temp/keyword";
 import aspects from "../../assets/temp/aspects";
+import scoreCnts from "../../assets/temp/scoreCnt";
 
 export default function HotelDetail(props: any, state: any) {
   const location = useLocation();
@@ -40,7 +43,7 @@ export default function HotelDetail(props: any, state: any) {
         <TitleCard>{hotelInfo?.Name}</TitleCard>
 
         {/* </div> */}
-        <CenterDiv>
+        <CenterDiv style={{ paddingBottom: 100 }}>
           <Wrap>
             <SentimentRatioCard data={sentimentRatios} />
             <KeywordsCard data={keywords} />
@@ -48,8 +51,10 @@ export default function HotelDetail(props: any, state: any) {
           <Wrap style={{ marginTop: 20 }}>
             <AspectCard items={aspects} />
           </Wrap>
-
-          <br />
+          <Wrap style={{ marginTop: 20 }}>
+            <ScoresCard data={scoreCnts} />
+            <AspectReviewCard />
+          </Wrap>
         </CenterDiv>
       </Background>
     </>
