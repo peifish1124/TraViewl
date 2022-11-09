@@ -9,6 +9,7 @@ import {
   KeywordsCard,
   TitleCard,
   AspectCard,
+  AmountCard,
 } from "./Components";
 import sentimentRatios from "../../assets/temp/sentimentRatio";
 import hotels from "../../assets/temp/hotel";
@@ -16,6 +17,7 @@ import { Hotel } from "../../models/Hotel";
 import styled from "styled-components";
 import keywords from "../../assets/temp/keyword";
 import aspects from "../../assets/temp/aspects";
+import { amounts } from "../../assets/temp/amount";
 
 export default function HotelDetail(props: any, state: any) {
   const location = useLocation();
@@ -48,7 +50,9 @@ export default function HotelDetail(props: any, state: any) {
           <Wrap style={{ marginTop: 20 }}>
             <AspectCard items={aspects} />
           </Wrap>
-
+          <Wrap style={{ marginTop: 20 }}>
+            <AmountCard data={amounts} />
+          </Wrap>
           <br />
         </CenterDiv>
       </Background>
