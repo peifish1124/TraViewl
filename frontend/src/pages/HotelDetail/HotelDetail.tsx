@@ -4,15 +4,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Background, CenterDiv, Wrap } from "../../components/Pages";
 import TitleBar from "../../components/TitleBar";
-import {
-  SentimentRatioCard,
-  KeywordsCard,
-  TitleCard,
-  AspectCard,
-  AmountCard,
-  ScoresCard,
-  AspectReviewCard,
-} from "./Components";
+import { TitleCard } from "./components/Components";
 import sentimentRatios from "../../assets/temp/sentimentRatio";
 import hotels from "../../assets/temp/hotel";
 import { Hotel } from "../../models/Hotel";
@@ -21,6 +13,12 @@ import keywords from "../../assets/temp/keyword";
 import aspects from "../../assets/temp/aspects";
 import { amounts } from "../../assets/temp/amount";
 import scoreCnts from "../../assets/temp/scoreCnt";
+import { SentimentRatioCard } from "./components/SentimentRatioCard";
+import { KeywordsCard } from "./components/KeywordsCard";
+import { AspectCard } from "./components/AspectCard";
+import { AmountCard } from "./components/AmountCard";
+import { ScoresCard } from "./components/ScoreCardProps";
+import { AspectReviewCard } from "./components/AspectReviewCard";
 
 export default function HotelDetail(props: any, state: any) {
   const location = useLocation();
