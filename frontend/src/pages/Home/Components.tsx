@@ -36,7 +36,12 @@ export function HotelCard(props?: HotelCardProps) {
   };
   return (
     <Box
-      style={{ height: 321.6, width: 246, background: "#FFFFFF", margin: 12 }}
+      style={{
+        height: 321.6,
+        width: 246,
+        background: "#FFFFFF",
+        marginTop: 12,
+      }}
     >
       <img
         src={require("../../assets/temp/hotelProfile.png")}

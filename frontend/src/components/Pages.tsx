@@ -6,7 +6,7 @@ export const Background = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0;
-  background: #d1d1d1;
+  background: #f5f5f5;
   width: 100%;
   align-items: center;
 `;
@@ -17,7 +17,6 @@ export const CenterDiv = styled.div`
   width: 80%;
   max-width: 1200px;
   min-width: 500px;
-  background: transparent;
   align-items: center;
 `;
 

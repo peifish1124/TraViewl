@@ -13,12 +13,17 @@ export default function Home() {
       <Toolbar></Toolbar>
       <TitleBar title="飯店列表"></TitleBar>
       <Background>
-        <CenterDiv>
-          <Wrap>
-            {hotels.map((item) => (
-              <HotelCard item={item} />
-            ))}
-          </Wrap>
+        <CenterDiv
+          style={{
+            justifyContent: "space-between",
+            padding: "auto",
+            flexWrap: "wrap",
+            flexDirection: "unset",
+          }}
+        >
+          {hotels.map((item) => (
+            <HotelCard item={item} />
+          ))}
         </CenterDiv>
       </Background>
     </>
