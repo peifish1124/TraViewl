@@ -5,7 +5,9 @@ export const TitleCard = styled.div`
   background-color: #ffffff;
   margin-top: -60px;
   font-size: 30px;
-  padding: 60px;
+  padding-top: 15px;
+  padding-left: 60px;
+  padding-right: 60px;
   text-align: center;
   text-justify: auto;
   word-wrap: break-word;
@@ -29,7 +31,7 @@ export const Card = styled.div`
   background-color: white;
   height: 360px;
 
-  max-height: 360px;
+  max-height: 380px;
   color: #464646;
 `;
 
@@ -118,3 +120,26 @@ export const Keyword = styled.p<KeywordStyled>`
     return "#F5F5F5";
   }};
 `;
+
+export const Blank = styled.div`
+  height: 30px;
+`;
+
+export const TitleRight = (props: any) => {
+  return (
+    <div
+      style={{
+        fontSize: 20,
+        position: "absolute",
+        display: "flex",
+        alignItems: "center",
+        flexDirection: "row",
+        right: 36,
+        height: 25,
+        top: 28,
+      }}
+    >
+      {props.children}
+    </div>
+  );
+};

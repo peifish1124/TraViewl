@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Card, Keyword, Title } from "./Components";
+import { Blank, Card, Keyword, Title } from "./Components";
 
 const KMain = styled.div`
   display: flex;
@@ -26,6 +26,7 @@ export function KeywordsCard(props?: KeywordsCardProps) {
           <Keyword key={k}>{k}</Keyword>
         ))}
       </KMain>
+      <Blank></Blank>
     </Card>
   );
 }

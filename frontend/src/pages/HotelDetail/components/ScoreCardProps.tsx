@@ -1,4 +1,14 @@
-import { Bar, Card, Main, SBarDiv, SRow, SText, Title } from "./Components";
+import {
+  Bar,
+  Blank,
+  Card,
+  Main,
+  SBarDiv,
+  SRow,
+  SText,
+  Title,
+  TitleRight,
+} from "./Components";
 
 interface ScoreCardProps {
   data: object;
@@ -53,18 +63,9 @@ export function ScoresCard(props: ScoreCardProps) {
   return (
     <Card style={{ flex: 5, marginRight: "1em", position: "relative" }}>
       <Title>分數統計</Title>
-      <div
-        style={{
-          fontSize: 20,
-          position: "absolute",
-          right: 36,
-          top: 28,
-        }}
-      >
-        共 {sum} 則評論
-      </div>
-
+      <TitleRight>共 {sum} 則評論</TitleRight>
       <Main>{getRows(data, max)}</Main>
+      <Blank></Blank>
     </Card>
   );
 }

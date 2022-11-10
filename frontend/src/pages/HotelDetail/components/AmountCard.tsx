@@ -59,7 +59,7 @@ export function AmountCard(props: AmountCardProps) {
   return (
     <ACard>
       <Title>關注度</Title>
-      <Main disableOverflow={true}>
+      <Main disableOverflow={true} style={{ padding: "30px" }}>
         <Line
           options={{
             scales: {

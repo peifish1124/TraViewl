@@ -1,6 +1,7 @@
 import { SentimentRatio } from "../../../models/SentimentRatio";
 import {
   Bar,
+  Blank,
   Card,
   Main,
   Reminder,
@@ -38,6 +39,7 @@ export function SentimentRatioCard(props?: SentimentRatioCardProps) {
           </SRow>
         ))}
       </Main>
+      <Blank></Blank>
     </Card>
   );
 }
