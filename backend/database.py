@@ -4,28 +4,26 @@ import os
 import pymongo
 from bson.objectid import ObjectId
 from datetime import datetime
+from bson.json_util import dumps
 
 def connect():
     client = pymongo.MongoClient("mongodb+srv://sylvey:54067sylvia@traviewl.t6m7fmq.mongodb.net/?retryWrites=true&w=majority")
     db = client.TraViewl
-    hotel = db.Hotel
-    hotelData = {
-        "Name": "常春藤酒店",
-        "County": "不存在的城市",
-        "District": "不存在的區",
-        "Advantage": '0123456789ab0123456789ab',
-        "Disadvantage": '0123456789ab0123456789ab',
-        "Keyword": {'0123456789ab0123456789ab': '0123456789ab0123456789ab'},
-        "Sentiment": {"面向": [12, 13, 23]},
-        "Img_path": "path",
-    }
-    id = hotel.insert_one(hotelData).inserted_id
     return db
+
+def getHotels():
+    db = connect()
+    hotel = db.Hotel
+    data = list(hotel.find({}))
+    print(data)
+    
+    return "123"
 
 
 # connect()
 
 # hotel = traveiwl.Hotel
+#hotel = db.Hotel
 # hotelData = {
 #     "Name": "常春藤酒店",
 #     "County": "不存在的城市",
@@ -33,7 +31,8 @@ def connect():
 #     "Advantage": '0123456789ab0123456789ab',
 #     "Disadvantage": '0123456789ab0123456789ab',
 #     "Keyword": {'0123456789ab0123456789ab': '0123456789ab0123456789ab'},
-#     "Sentiment": {"面向": [12, 13, 23]}
+#     "Sentiment": {"面向": [12, 13, 23]},
+#     "Img_path": "path",
 # }
 # id = hotel.insert_one(hotelData).inserted_id
 
