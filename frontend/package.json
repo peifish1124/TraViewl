@@ -21,6 +21,7 @@
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
+    "axios": "^1.1.3",
     "chart.js": "^3.9.1",
     "linaria": "^4.1.8",
     "polished": "^4.2.2",

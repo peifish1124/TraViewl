@@ -1,7 +1,7 @@
 import { remToPx } from "polished";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import ArrowForwardIcon from '@mui/icons-material/East';
+import ArrowForwardIcon from "@mui/icons-material/East";
 import { isTemplateSpan } from "typescript";
 import { Aspect } from "../../models/Aspect";
 import { SentimentRatio } from "../../models/SentimentRatio";
@@ -60,15 +60,11 @@ interface MainProps {
   disableOverflow?: boolean;
 }
 
-const Card = styled.div<MainProps>`
+const Card = styled.div`
   display: flex;
   flex-direction: column;
   background-color: white;
-  ${(props) => {
-    if (!props.disableOverflow) {
-      return "height: 360px;";
-    }
-  }}
+  height: 360px;
 
   max-height: 360px;
   color: #464646;
@@ -85,10 +81,12 @@ const Main = styled.div<MainProps>`
   align-items: center;
   padding-bottom: 1.5em;
   flex: 1;
-  overflow: hidden;
-  &:hover {
-    overflow-y: auto;
-  }
+
+  ${(props) => {
+    if (!props.disableOverflow) {
+      return "overflow: hidden; &:hover {overflow-y: auto;}";
+    }
+  }}
 `;
 
 const SRow = styled.div`
@@ -257,6 +255,22 @@ interface AmountCardProps {
   data: AmountData[];
 }
 
+const ACard = (props: any) => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        flexDirection: "column",
+        backgroundColor: "white",
+        width: "100%",
+        color: "#464646",
+      }}
+    >
+      {props.children}
+    </div>
+  );
+};
+
 export function AmountCard(props: AmountCardProps) {
   const [data, setData] = useState<ChartData<"line", number[], string>>({
     labels: props.data.map((v) => v.time),
@@ -270,11 +284,10 @@ export function AmountCard(props: AmountCardProps) {
     ],
   });
   return (
-    <Card style={{ flex: 1 }} disableOverflow={true}>
+    <ACard>
       <Title>關注度</Title>
-      <Main disableOverflow={true} style={{ height: "290px" }}>
+      <Main disableOverflow={true}>
         <Line
-          style={{ height: "270px", width: "80%" }}
           options={{
             scales: {
               x: {
@@ -318,7 +331,7 @@ export function AmountCard(props: AmountCardProps) {
           data={data}
         ></Line>
       </Main>
-    </Card>
+    </ACard>
   );
 }
 //--------------------ScoresCard----------------------------//
@@ -432,40 +445,56 @@ const IconDiv = styled.div`
     color: white;
     background-color: #464646;
   }
-`
+`;
 
 export function AspectReviewCard() {
-  const aspects = ["房間", "早餐", "游泳池", "停車", "交通", "浴室", "景觀", "服務", "健身房", "晚餐"];
+  const aspects = [
+    "房間",
+    "早餐",
+    "游泳池",
+    "停車",
+    "交通",
+    "浴室",
+    "景觀",
+    "服務",
+    "健身房",
+    "晚餐",
+  ];
   const mid = Math.round(aspects.length / 2);
   const left = aspects.slice(0, mid);
   const right = aspects.slice(mid);
 
-
   return (
     <Card style={{ flex: 6 }}>
       <Title>面向相關評論</Title>
-      <Main style={{ paddingTop: '0.5em', position: 'relative', flexDirection: 'row' }}>
-        <SideDiv>{
-          left.map((aspect, i) => (
+      <Main
+        style={{
+          paddingTop: "0.5em",
+          position: "relative",
+          flexDirection: "row",
+        }}
+      >
+        <SideDiv>
+          {left.map((aspect, i) => (
             <SideRow key={i}>
               <div>{aspect}</div>
               <IconDiv>
                 <ArrowForwardIcon />
               </IconDiv>
             </SideRow>
-          ))  
-        }</SideDiv>
+          ))}
+        </SideDiv>
         <VerticalLine />
-        <SideDiv>{
-          right.map((aspect, i) => (
+        <SideDiv>
+          {right.map((aspect, i) => (
             <SideRow key={i}>
               <div>{aspect}</div>
               <IconDiv>
                 <ArrowForwardIcon />
               </IconDiv>
             </SideRow>
-          ))  
-        }</SideDiv>
+          ))}
+        </SideDiv>
       </Main>
     </Card>
   );
