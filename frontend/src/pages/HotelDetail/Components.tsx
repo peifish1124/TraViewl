@@ -185,11 +185,11 @@ const Keyword = styled.p<KeywordStyled>`
     if (props) {
       switch (props.background) {
         case Sentiment.positive:
-          return "#60C35E";
+          return "rgba(96, 196, 94, 0.2);";
         case Sentiment.common:
           return "#F5F5F5";
         case Sentiment.negative:
-          return "#FF9432";
+          return "rgba(255, 148, 50, 0.2);";
       }
     }
     return "#F5F5F5";
