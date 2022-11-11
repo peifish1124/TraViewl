@@ -4,7 +4,9 @@ from database import connect, getHotels, getHotelById
 from bson.json_util import dumps
 from flask_cors import CORS
 
+
 app = Flask(__name__)
+CORS(app, supports_credentials=True)
 app.config['JSON_AS_ASCII'] = False
 
 CORS(app, resources={r"/.*": {"origins": ["*"]}})

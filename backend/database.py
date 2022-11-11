@@ -59,7 +59,6 @@ def getHotelById(hotel_id):
 
         sentiment_data = []
         for k, v in hotel_data['sentiment_ratio'].items():
-            print(k, v)
             sentiment_data.append({
                 'aspect': k,
                 'positive': v[0],

@@ -5,9 +5,9 @@ import { useLocation } from "react-router-dom";
 import { Background, CenterDiv, Wrap } from "../../components/Pages";
 import TitleBar from "../../components/TitleBar";
 import { TitleCard } from "./components/Components";
-import sentimentRatios from "../../assets/temp/sentimentRatio";
 import hotels from "../../assets/temp/hotel";
 import { Hotel } from "../../models/Hotel";
+import { SentimentRatio } from "../../models/SentimentRatio";
 import styled from "styled-components";
 import keywords from "../../assets/temp/keyword";
 import aspects from "../../assets/temp/aspects";
@@ -21,6 +21,9 @@ import { ScoresCard } from "./components/ScoreCardProps";
 import { AspectReviewCard } from "./components/AspectReviewCard";
 import TopBar from "../../components/TopBar";
 
+import { getSentimentRatio } from '../../toBackend/api';
+
+
 const subTitleRe = /(\w+)/;
 
 export default function HotelDetail(props: any, state: any) {
@@ -29,6 +32,7 @@ export default function HotelDetail(props: any, state: any) {
   const [hotelInfo, setHotelInfo] = useState<Hotel>();
   const [hotelTitle, setHotelTitle] = useState<String>();
   const [hotelSubTitle, setHotelSubTitle] = useState<String>();
+  const [sentimentRatios, setSentimentRatios] = useState<SentimentRatio[]>();
 
   useEffect(() => {
     setHotelId(location.state);
@@ -43,6 +47,16 @@ export default function HotelDetail(props: any, state: any) {
     setHotelSubTitle(
       hotels[0]?.Name?.substring(indC || hotels[0]?.Name?.length)
     );
+
+    // console.log(hotelId);
+    const setSR = async () => {
+      await getSentimentRatio("636d32111a537da8fd0a1bb2")
+      .then(sr => {
+        setSentimentRatios(sr);
+      });
+    }
+    setSR();
+    
   }, []);
 
   return (
