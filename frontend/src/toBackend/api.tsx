@@ -20,3 +20,8 @@ export async function getSentimentRatio(hotelId: string) {
   const { sentiment_ratio }: {sentiment_ratio: SentimentRatio[]} = await getHotel(hotelId);
   return sentiment_ratio;
 }
+
+export async function getKeyword(hotelId: string) {
+  const { keyword }: {keyword: string[]} = await getHotel(hotelId);
+  return keyword;
+}

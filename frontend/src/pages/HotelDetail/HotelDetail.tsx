@@ -9,7 +9,6 @@ import hotels from "../../assets/temp/hotel";
 import { Hotel } from "../../models/Hotel";
 import { SentimentRatio } from "../../models/SentimentRatio";
 import styled from "styled-components";
-import keywords from "../../assets/temp/keyword";
 import aspects from "../../assets/temp/aspects";
 import { amounts } from "../../assets/temp/amount";
 import scoreCnts from "../../assets/temp/scoreCnt";
@@ -21,7 +20,7 @@ import { ScoresCard } from "./components/ScoreCardProps";
 import { AspectReviewCard } from "./components/AspectReviewCard";
 import TopBar from "../../components/TopBar";
 
-import { getSentimentRatio } from '../../toBackend/api';
+import { getSentimentRatio, getKeyword } from '../../toBackend/api';
 
 
 const subTitleRe = /(\w+)/;
@@ -32,7 +31,8 @@ export default function HotelDetail(props: any, state: any) {
   const [hotelInfo, setHotelInfo] = useState<Hotel>();
   const [hotelTitle, setHotelTitle] = useState<String>();
   const [hotelSubTitle, setHotelSubTitle] = useState<String>();
-  const [sentimentRatios, setSentimentRatios] = useState<SentimentRatio[]>();
+  const [sentimentRatios, setSentimentRatios] = useState<SentimentRatio[]>([]);
+  const [keywords, setKeywords] = useState<string[]>([]);
 
   useEffect(() => {
     setHotelId(location.state);
@@ -48,14 +48,22 @@ export default function HotelDetail(props: any, state: any) {
       hotels[0]?.Name?.substring(indC || hotels[0]?.Name?.length)
     );
 
-    // console.log(hotelId);
+    console.log('hotelId:', hotelId);
     const setSR = async () => {
-      await getSentimentRatio("636d32111a537da8fd0a1bb2")
+      await getSentimentRatio("636d32111a537da8fd0a1bb2") // hotelId
       .then(sr => {
         setSentimentRatios(sr);
       });
     }
     setSR();
+
+    const setKW = async () => {
+      await getKeyword("636d32111a537da8fd0a1bb2") // hotelId
+      .then(kw => {
+        setKeywords(kw);
+      })
+    }
+    setKW();
     
   }, []);
 
