@@ -49,21 +49,9 @@ export default function HotelDetail(props: any, state: any) {
     );
 
     console.log('hotelId:', hotelId);
-    const setSR = async () => {
-      await getSentimentRatio("636d32111a537da8fd0a1bb2") // hotelId
-      .then(sr => {
-        setSentimentRatios(sr);
-      });
-    }
-    setSR();
-
-    const setKW = async () => {
-      await getKeyword("636d32111a537da8fd0a1bb2") // hotelId
-      .then(kw => {
-        setKeywords(kw);
-      })
-    }
-    setKW();
+    
+    getSentimentRatio("636d32111a537da8fd0a1bb2").then(sr => { setSentimentRatios(sr) }); // hotelId
+    getKeyword("636d32111a537da8fd0a1bb2").then(kw => { setKeywords(kw) }); // hotelId
     
   }, []);
 
