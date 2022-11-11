@@ -34,6 +34,47 @@ def getHotels():
 
     return returnData
 
+def getHotelById(hotel_id):
+    db = connect()
+    hotel = db.Hotel
+    # without hotel_id: all hotels
+    if hotel_id == None:
+        data = list(hotel.find({}))
+        print(data)
+        return(data)
+    
+    # with hotel_id: a hotel
+    else:
+        hotel_id = ObjectId(hotel_id)
+        hotel_data = hotel.find_one(
+            {"_id": hotel_id},
+            {
+                '_id': 0,
+                'name': 1,
+                'subpage_image': 1,
+                'sentiment_ratio': 1,
+                'keyword': 1
+            }
+        )
+
+        sentiment_data = []
+        for k, v in hotel_data['sentiment_ratio'].items():
+            print(k, v)
+            sentiment_data.append({
+                'aspect': k,
+                'positive': v[0],
+                'neutral': v[2],
+                'negative': v[1]
+            })
+        hotel_data['sentiment_ratio'] = sentiment_data
+
+        keyword_ids = hotel_data['keyword']
+        keyword = db.Keyword
+        keyword_data = [ keyword.find_one({"_id": ObjectId(kid)}, {'_id': 0})['text'] for kid in keyword_ids ]
+        hotel_data['keyword'] = keyword_data
+        
+        return hotel_data
+
 
 # connect()
 
