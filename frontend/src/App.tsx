@@ -11,7 +11,7 @@ import HotelDetail from "./pages/HotelDetail/HotelDetail";
 function App(props: any) {
   return (
     <React.Fragment>
-      <TopBar></TopBar>
+      {/* <TopBar></TopBar> */}
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />} />

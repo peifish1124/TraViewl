@@ -19,6 +19,7 @@ import { AspectCard } from "./components/AspectCard";
 import { AmountCard } from "./components/AmountCard";
 import { ScoresCard } from "./components/ScoreCardProps";
 import { AspectReviewCard } from "./components/AspectReviewCard";
+import TopBar from "../../components/TopBar";
 
 const subTitleRe = /(\w+)/;
 
@@ -46,6 +47,7 @@ export default function HotelDetail(props: any, state: any) {
 
   return (
     <>
+      <TopBar></TopBar>
       <Toolbar></Toolbar>
       <Background>
         <img

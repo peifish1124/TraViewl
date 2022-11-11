@@ -58,13 +58,20 @@ export function HotelCard(props?: HotelCardProps) {
         <Row style={{ marginTop: 10 }}>
           <Icon src={require("../../assets/advantage.png")} />
           {props?.item?.Advantage?.map((item) => {
-            return <Tag title={item} style={{ marginLeft: 2 }} />;
+            return (
+              <Tag
+                title={item}
+                style={{ fontSize: "15px", width: "70px", marginLeft: 2 }}
+              />
+            );
           })}
         </Row>
         <Row style={{ marginTop: 10 }}>
           <Icon src={require("../../assets/disadvantage.png")} />
           {props?.item?.Disadvantage?.map((item) => {
-            return <Tag title={item} style={{ marginLeft: 2 }} />;
+            return (
+              <Tag title={item} style={{ fontSize: "15px", marginLeft: 2 }} />
+            );
           })}
         </Row>
       </div>

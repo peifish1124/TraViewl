@@ -4,7 +4,7 @@ import os
 import pymongo
 from bson.objectid import ObjectId
 from datetime import datetime
-from bson.json_util import dumps
+
 
 def connect():
     client = pymongo.MongoClient("mongodb+srv://sylvey:54067sylvia@traviewl.t6m7fmq.mongodb.net/?retryWrites=true&w=majority")
@@ -14,10 +14,25 @@ def connect():
 def getHotels():
     db = connect()
     hotel = db.Hotel
-    data = list(hotel.find({}))
-    print(data)
+    disadvantage = db.Disadvantage
+    advantage = db.Advantage
     
-    return "123"
+    data = list(hotel.find({}))
+    
+    returnData = [{
+        "_id": str(x["_id"]),
+        "Name": x["name"],
+        "County": x["county"],
+        "District": x["district"],
+        "Home_Image": x["home_image"],
+        "Advantage": [ advantage.find_one({"_id": ObjectId(y)})["text"] for y in x["advantage"] ],
+        "Disadvantage": [ disadvantage.find_one({"_id": ObjectId(y)})["text"] for y in x["disadvantage"] ]
+    } for x in data]
+
+    # print(returnData)
+
+
+    return returnData
 
 
 # connect()

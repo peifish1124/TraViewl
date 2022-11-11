@@ -5,6 +5,5 @@ export interface Hotel {
   District: string | undefined | null;
   Advantage: string[] | undefined | null;
   Disadvantage: string[] | undefined | null;
-  Keyword: any;
-  Sentiment: any;
+  Home_Image: string;
 }

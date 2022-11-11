@@ -8,6 +8,7 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Image } from "@mui/icons-material";
 import useScrollTrigger from "@mui/material/useScrollTrigger";
+import { useNavigate } from "react-router-dom";
 
 interface Props {
   window?: () => Window;
@@ -28,6 +29,7 @@ function ElevationScroll(props: Props) {
 }
 
 export default function TopBar() {
+  const navigate = useNavigate();
   return (
     <ElevationScroll>
       <AppBar
@@ -38,7 +40,7 @@ export default function TopBar() {
         }}
       >
         <Toolbar>
-          <Button>
+          <Button onClick={() => navigate("/")}>
             <img
               src={require("../assets/logo.png")}
               style={{ width: 156, height: 44.4 }}
