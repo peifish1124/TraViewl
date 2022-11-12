@@ -55,7 +55,6 @@ def getHotelById(hotel_id):
     # without hotel_id: all hotels
     if hotel_id == None:
         data = list(hotel.find({}))
-        print(data)
         return(data)
     
     # with hotel_id: a hotel
@@ -89,6 +88,35 @@ def getHotelById(hotel_id):
         
         return hotel_data
 
+def getHotelAspect(hotel_id):
+    db = connect()
+    hotel = db.Hotel
+    review = db.Review
+
+    hotel_id = ObjectId(hotel_id)
+    aspect_review = hotel.find_one(
+        {"_id": hotel_id},
+        {
+            '_id': 0,
+            'aspect_review': 1,
+        }
+    )['aspect_review']
+
+    result = dict()
+    for aspect, review_ids in aspect_review.items():
+        review_data = []
+        for review_id in review_ids:
+            review_data.append(review.find_one(
+                {"_id": ObjectId(review_id)},
+                {
+                    '_id': 0,
+                    'hotel_id': 0    
+                }
+            ))
+        
+        result[aspect] = review_data
+
+    return result
 
 # connect()
 
