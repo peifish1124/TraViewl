@@ -72,6 +72,13 @@ export function AspectReviewCard(props: {
       setRight(Object.keys(props.aspect).slice(mid));
     }
   }, [props]);
+  // =======
+  // export function AspectReviewCard(props: { onClick: Function, data: string[] }) {
+  //   const aspects = props.data;
+  //   const mid = Math.round(aspects.length / 2);
+  //   const left = aspects.slice(0, mid);
+  //   const right = aspects.slice(mid);
+  // >>>>>>> d08d65d40c9f8a24dd27f123945e5a70df785487
 
   return (
     <Card style={{ flex: 6 }}>
@@ -98,7 +105,7 @@ export function AspectReviewCard(props: {
           {right.map((aspect, i) => (
             <SideRow key={i}>
               <div>{aspect}</div>
-              <IconDiv onClick={() => props.onClick()}>
+              <IconDiv onClick={() => props.onClick(aspect)}>
                 <ArrowForwardIcon />
               </IconDiv>
             </SideRow>

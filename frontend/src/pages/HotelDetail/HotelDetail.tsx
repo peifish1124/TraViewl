@@ -25,6 +25,9 @@ import {
   getKeyword,
   getHotelContent,
   getHotelAspect,
+  // =======
+  //   getFixedAspect,
+  // >>>>>>> d08d65d40c9f8a24dd27f123945e5a70df785487
 } from "../../toBackend/api";
 import { Aspect } from "../../models/Aspect";
 import { ClassNameMap } from "@material-ui/core/styles/withStyles";
@@ -55,6 +58,11 @@ export default function HotelDetail(props: any, state: any) {
   const [coverShow, setCoverShow] = useState<boolean>(false);
   const [aspectReview, setAspectReview] = useState<AspectReview>();
   const [reviews, setReviews] = useState<Review[]>();
+  // =======
+  //   const [fixedAspects, setFixedAspects] = useState<string[]>([]);
+  //   const [coverShow, setCoverShow] = useState<boolean>(true);
+
+  // >>>>>>> d08d65d40c9f8a24dd27f123945e5a70df785487
   useEffect(() => {
     setHotelId(location.state);
     setHotelInfo(hotels[0]);
@@ -83,6 +91,10 @@ export default function HotelDetail(props: any, state: any) {
 
     getHotelAspect("636d32111a537da8fd0a1bb2").then((ar) => {
       setAspectReview(ar);
+      // =======
+      //     getFixedAspect("636d32111a537da8fd0a1bb2").then((fa) => {
+      //       setFixedAspects(fa);
+      // >>>>>>> d08d65d40c9f8a24dd27f123945e5a70df785487
     });
   }, []);
 
@@ -135,6 +147,9 @@ export default function HotelDetail(props: any, state: any) {
           <Wrap style={{ marginTop: 20 }}>
             <ScoresCard data={scoreCnts} />
             <AspectReviewCard onClick={showReviews} aspect={aspectReview} />
+            {/* =======
+            <AspectReviewCard onClick={() => setCoverShow(true)} data={fixedAspects} />
+>>>>>>> d08d65d40c9f8a24dd27f123945e5a70df785487 */}
           </Wrap>
         </CenterDiv>
       </Background>

@@ -38,3 +38,12 @@ export async function getHotelAspect(hotelId: string) {
     return res.data as AspectReview;
   });
 }
+
+// async function getAspectReview(hotelId: string) {
+//   return await axios.get(`/hotels/aspect/${hotelId}`).then((res) => res.data);
+// }
+
+// export async function getFixedAspect(hotelId: string) {
+//   const aspect_review = await getAspectReview(hotelId);
+//   return Object.keys(aspect_review);
+// }
