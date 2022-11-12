@@ -88,6 +88,28 @@ def getHotelById(hotel_id):
         
         return hotel_data
 
+def getHotelAmount(hotel_id):
+    db = connect()
+    review = db.Review
+    
+    review_data = list(review.find(
+        {"hotel_id": hotel_id},
+        {
+            'time': 1,
+            'star': 1
+        }
+    ))
+
+    result = []
+    for data in review_data:
+        r = dict()
+        r['review_id'] = str(data['_id'])
+        r['time'] = data['time']
+        r['star'] = data['star']
+        result.append(r)
+
+    return result
+
 def getHotelAspect(hotel_id):
     db = connect()
     hotel = db.Hotel
