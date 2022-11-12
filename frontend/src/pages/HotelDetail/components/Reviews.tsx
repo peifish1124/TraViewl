@@ -2,9 +2,11 @@ import { Backdrop, Button, ClassNameMap, Toolbar } from "@mui/material";
 import styled from "styled-components";
 import { RightDiv } from "../../../components/Pages";
 import TopBar from "../../../components/TopBar";
+import { Review } from "../../../models/AspectReview";
+import { DateTime } from "luxon";
 import { Card, SRow, Title, TitleRight } from "./Components";
 
-const ReviewCard = (props: { children: any }) => {
+const RCard = (props: { children: any }) => {
   return (
     <div
       style={{
@@ -77,11 +79,38 @@ const ReviewContent = styled.p`
   padding: 0em 2.25em;
 `;
 
+function ReviewCard(props: { item?: Review }) {
+  return (
+    <RCard>
+      <LeftCard>
+        <Circle score={props.item?.star || 0} />
+        <SRow style={{ justifyContent: "center", alignItems: "center" }}>
+          <img
+            src={require("../../../assets/Time.png")}
+            height={24}
+            width={24}
+          ></img>
+          <InfoContent>
+            {DateTime.fromHTTP(props.item?.time || "").toFormat("yyyy-MM-dd")}
+          </InfoContent>
+        </SRow>
+      </LeftCard>
+      <Line />
+      <RightCard>
+        <Title style={{ color: "black" }}>{props.item?.title}</Title>
+        <ReviewContent>{props.item?.normal_text}</ReviewContent>
+      </RightCard>
+    </RCard>
+  );
+}
+
 export function Reviews(props: {
   classes: ClassNameMap;
   coverShow: boolean;
+  data?: Review[];
   setCoverShow: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
+  console.log("data", props.data || 0);
   return (
     <Backdrop className={props.classes.backdrop} open={props.coverShow}>
       <div
@@ -99,27 +128,20 @@ export function Reviews(props: {
         }}
       >
         <TitleRight>
-          <Button onClick={() => props.setCoverShow(false)}>X</Button>
+          <Button onClick={() => props.setCoverShow(false)}>
+            <img
+              src={require("../../../assets/Cross.png")}
+              height={70}
+              width={70}
+            />
+          </Button>
         </TitleRight>
         <Toolbar></Toolbar>
-        <ReviewCard>
-          <LeftCard>
-            <Circle score={9.1} />
-            <SRow style={{ justifyContent: "center", alignItems: "center" }}>
-              <img
-                src={require("../../../assets/Time.png")}
-                height={24}
-                width={24}
-              ></img>
-              <InfoContent>2022-01-12</InfoContent>
-            </SRow>
-          </LeftCard>
-          <Line />
-          <RightCard>
-            <Title style={{ color: "black" }}>12345</Title>
-            <ReviewContent>123451---</ReviewContent>
-          </RightCard>
-        </ReviewCard>
+        <>
+          {props.data
+            ? props.data.map((item) => <ReviewCard item={item} />)
+            : null}
+        </>
       </div>
     </Backdrop>
   );

@@ -24,10 +24,12 @@ import {
   getSentimentRatio,
   getKeyword,
   getHotelContent,
+  getHotelAspect,
 } from "../../toBackend/api";
 import { Aspect } from "../../models/Aspect";
 import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 import { Reviews } from "./components/Reviews";
+import { AspectReview, Review } from "../../models/AspectReview";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -50,8 +52,9 @@ export default function HotelDetail(props: any, state: any) {
   const [sentimentRatios, setSentimentRatios] = useState<SentimentRatio[]>([]);
   const [keywords, setKeywords] = useState<string[]>([]);
   const [aspects, setAspects] = useState<Aspect>();
-  const [coverShow, setCoverShow] = useState<boolean>(true);
-
+  const [coverShow, setCoverShow] = useState<boolean>(false);
+  const [aspectReview, setAspectReview] = useState<AspectReview>();
+  const [reviews, setReviews] = useState<Review[]>();
   useEffect(() => {
     setHotelId(location.state);
     setHotelInfo(hotels[0]);
@@ -77,6 +80,10 @@ export default function HotelDetail(props: any, state: any) {
     getHotelContent("636d32111a537da8fd0a1bb2").then((ct) => {
       setAspects(ct);
     });
+
+    getHotelAspect("636d32111a537da8fd0a1bb2").then((ar) => {
+      setAspectReview(ar);
+    });
   }, []);
 
   useEffect(() => {
@@ -86,6 +93,19 @@ export default function HotelDetail(props: any, state: any) {
       document.body.style.overflow = "unset";
     }
   }, [coverShow]);
+
+  useEffect(() => {
+    if (reviews) {
+      setCoverShow(true);
+    }
+  }, [reviews]);
+
+  const showReviews = (aspect: string) => {
+    if (aspectReview) {
+      setReviews(aspectReview[aspect]);
+      console.log("here", aspectReview[aspect]);
+    }
+  };
 
   return (
     <>
@@ -114,11 +134,13 @@ export default function HotelDetail(props: any, state: any) {
           </Wrap>
           <Wrap style={{ marginTop: 20 }}>
             <ScoresCard data={scoreCnts} />
-            <AspectReviewCard onClick={() => setCoverShow(true)} />
+            <AspectReviewCard onClick={showReviews} aspect={aspectReview} />
           </Wrap>
         </CenterDiv>
       </Background>
+
       <Reviews
+        data={reviews}
         classes={classes}
         coverShow={coverShow}
         setCoverShow={setCoverShow}

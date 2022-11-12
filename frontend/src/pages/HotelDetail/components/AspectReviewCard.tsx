@@ -2,6 +2,8 @@ import styled from "styled-components";
 import { Card, Main, Title } from "./Components";
 import ArrowForwardIcon from "@mui/icons-material/East";
 import { Button } from "@mui/material";
+import { AspectReview } from "../../../models/AspectReview";
+import { useEffect, useState } from "react";
 
 const VerticalLine = styled.div`
   border-left: 2px solid #464646;
@@ -41,22 +43,35 @@ const IconDiv = styled(Button)`
   }
 `;
 
-export function AspectReviewCard(props: { onClick: Function }) {
-  const aspects = [
-    "房間",
-    "早餐",
-    "游泳池",
-    "停車",
-    "交通",
-    "浴室",
-    "景觀",
-    "服務",
-    "健身房",
-    "晚餐",
-  ];
-  const mid = Math.round(aspects.length / 2);
-  const left = aspects.slice(0, mid);
-  const right = aspects.slice(mid);
+export function AspectReviewCard(props: {
+  onClick: Function;
+  aspect?: AspectReview;
+}) {
+  // const aspects = [
+  //   "房間",
+  //   "早餐",
+  //   "游泳池",
+  //   "停車",
+  //   "交通",
+  //   "浴室",
+  //   "景觀",
+  //   "服務",
+  //   "健身房",
+  //   "晚餐",
+  // ];
+  const [mid, setMid] = useState(0);
+  const [left, setLeft] = useState<string[]>([]);
+  const [right, setRight] = useState<string[]>([]);
+  // const mid = Math.round(Object.keys(props.aspect).length / 2);
+  // const left = Object.keys(props.aspect).slice(0, mid);
+  // const right = Object.keys(props.aspect).slice(mid);
+  useEffect(() => {
+    if (props.aspect) {
+      const mid = Math.round(Object.keys(props.aspect).length / 2);
+      setLeft(Object.keys(props.aspect).slice(0, mid));
+      setRight(Object.keys(props.aspect).slice(mid));
+    }
+  }, [props]);
 
   return (
     <Card style={{ flex: 6 }}>
@@ -72,7 +87,7 @@ export function AspectReviewCard(props: { onClick: Function }) {
           {left.map((aspect, i) => (
             <SideRow key={i}>
               <div>{aspect}</div>
-              <IconDiv>
+              <IconDiv onClick={() => props.onClick(aspect)}>
                 <ArrowForwardIcon />
               </IconDiv>
             </SideRow>

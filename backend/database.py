@@ -45,8 +45,6 @@ def getHotelContent(hotel_id):
         for x in dataP
     }
 
-    # print(returnData)
-
     return returnData
 
 def getHotelById(hotel_id):

@@ -33,6 +33,7 @@ def hotelContent(hotel_id):
     data = getHotelContent(hotel_id)
     return dumps(data)
 
+
 @app.route("/hotels/aspect/<hotel_id>", methods=["GET"])
 def hotelAspect(hotel_id):
     data = getHotelAspect(hotel_id)
