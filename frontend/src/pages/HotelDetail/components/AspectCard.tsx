@@ -57,12 +57,12 @@ export function AspectCard(props: AspectCardProps) {
         <p>負向</p>
       </TitleRight>
       <Main>
-        {Object.keys(props.items).map((aspect) => (
-          <SRow style={{ alignItems: "center" }}>
+        {Object.keys(props.items).map((aspect, i) => (
+          <SRow key={i} style={{ alignItems: "center" }}>
             <SText style={{ flex: 1 }}>{aspect}</SText>
             <OpinionsDiv>
-              {Object.keys(props.items[aspect]).map((opinion) => (
-                <Keyword background={props.items[aspect][opinion]}>
+              {Object.keys(props.items[aspect]).map((opinion, j) => (
+                <Keyword key={i+'-'+j} background={props.items[aspect][opinion]}>
                   {opinion}
                 </Keyword>
               ))}
