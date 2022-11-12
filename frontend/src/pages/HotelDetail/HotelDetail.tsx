@@ -12,12 +12,11 @@ import { SentimentRatio } from "../../models/SentimentRatio";
 import styled from "styled-components";
 // import aspects from "../../assets/temp/aspects";
 import { amounts } from "../../assets/temp/amount";
-import scoreCnts from "../../assets/temp/scoreCnt";
 import { SentimentRatioCard } from "./components/SentimentRatioCard";
 import { KeywordsCard } from "./components/KeywordsCard";
 import { AspectCard } from "./components/AspectCard";
 import { AmountCard } from "./components/AmountCard";
-import { ScoresCard } from "./components/ScoreCardProps";
+import { ScoresCard } from "./components/ScoresCard";
 import { AspectReviewCard } from "./components/AspectReviewCard";
 import TopBar from "../../components/TopBar";
 import {
@@ -25,9 +24,8 @@ import {
   getKeyword,
   getHotelContent,
   getHotelAspect,
-  // =======
   //   getFixedAspect,
-  // >>>>>>> d08d65d40c9f8a24dd27f123945e5a70df785487
+  getScoreCnts
 } from "../../toBackend/api";
 import { Aspect } from "../../models/Aspect";
 import { ClassNameMap } from "@material-ui/core/styles/withStyles";
@@ -58,11 +56,11 @@ export default function HotelDetail(props: any, state: any) {
   const [coverShow, setCoverShow] = useState<boolean>(false);
   const [aspectReview, setAspectReview] = useState<AspectReview>();
   const [reviews, setReviews] = useState<Review[]>();
-  // =======
   //   const [fixedAspects, setFixedAspects] = useState<string[]>([]);
   //   const [coverShow, setCoverShow] = useState<boolean>(true);
+  const [scoreCnts, setScoreCnts] = useState<object>();
 
-  // >>>>>>> d08d65d40c9f8a24dd27f123945e5a70df785487
+  
   useEffect(() => {
     setHotelId(location.state);
     setHotelInfo(hotels[0]);
@@ -96,6 +94,9 @@ export default function HotelDetail(props: any, state: any) {
       //       setFixedAspects(fa);
       // >>>>>>> d08d65d40c9f8a24dd27f123945e5a70df785487
     });
+    getScoreCnts("636d32111a537da8fd0a1bb2").then((sc) => {
+      setScoreCnts(sc);
+    })
   }, []);
 
   useEffect(() => {

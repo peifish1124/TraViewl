@@ -11,11 +11,13 @@ import {
 } from "./Components";
 
 interface ScoreCardProps {
-  data: object;
+  data: object | undefined;
 }
 
 export function ScoresCard(props: ScoreCardProps) {
-  const data = props.data;
+  const data = props.data ? props.data : {} ;
+
+
   const arr = Object.values(data);
   const max = Math.max(...arr);
   const sum = arr.reduce((partialSum, a) => partialSum + a, 0);
