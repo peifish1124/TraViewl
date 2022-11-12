@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { Card, Main, Title } from "./Components";
 import ArrowForwardIcon from "@mui/icons-material/East";
+import { Button } from "@mui/material";
 
 const VerticalLine = styled.div`
   border-left: 2px solid #464646;
@@ -28,7 +29,7 @@ const SideRow = styled.div`
   padding-bottom: 0.9em;
 `;
 
-const IconDiv = styled.div`
+const IconDiv = styled(Button)`
   font-size: 20px;
   border: 1px solid #464646;
   border-radius: 10px;
@@ -40,16 +41,8 @@ const IconDiv = styled.div`
   }
 `;
 
-interface AspectReviewCardProps {
-  data?: string[] | undefined;
-}
-
-export function AspectReviewCard(props?: AspectReviewCardProps) {
-  let aspects = props?.data;
-  if(!aspects) {
-    aspects = [];
-  }
-  
+export function AspectReviewCard(props: { onClick: Function, data: string[] }) {
+  const aspects = props.data;
   const mid = Math.round(aspects.length / 2);
   const left = aspects.slice(0, mid);
   const right = aspects.slice(mid);
@@ -79,7 +72,7 @@ export function AspectReviewCard(props?: AspectReviewCardProps) {
           {right.map((aspect, i) => (
             <SideRow key={i}>
               <div>{aspect}</div>
-              <IconDiv>
+              <IconDiv onClick={() => props.onClick()}>
                 <ArrowForwardIcon />
               </IconDiv>
             </SideRow>
