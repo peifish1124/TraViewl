@@ -1,10 +1,11 @@
-import { Toolbar } from "@mui/material";
+import { Backdrop, Toolbar } from "@mui/material";
+import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { stat } from "fs";
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
 import { Background, CenterDiv, Wrap } from "../../components/Pages";
 import TitleBar from "../../components/TitleBar";
-import { TitleCard } from "./components/Components";
+import { Card, Title, TitleCard } from "./components/Components";
 import hotels from "../../assets/temp/hotel";
 import { Hotel } from "../../models/Hotel";
 import { SentimentRatio } from "../../models/SentimentRatio";
@@ -19,17 +20,28 @@ import { AmountCard } from "./components/AmountCard";
 import { ScoresCard } from "./components/ScoreCardProps";
 import { AspectReviewCard } from "./components/AspectReviewCard";
 import TopBar from "../../components/TopBar";
-
 import {
   getSentimentRatio,
   getKeyword,
   getHotelContent,
 } from "../../toBackend/api";
 import { Aspect } from "../../models/Aspect";
+import { ClassNameMap } from "@material-ui/core/styles/withStyles";
+import { Reviews } from "./components/Reviews";
 
-const subTitleRe = /(\w+)/;
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    backdrop: {
+      zIndex: theme.zIndex.drawer + 1,
+      color: "#fff",
+    },
+  })
+);
+
+// const OVERLAY_STYLE =
 
 export default function HotelDetail(props: any, state: any) {
+  const classes = useStyles();
   const location = useLocation();
   const [hotelId, setHotelId] = useState("");
   const [hotelInfo, setHotelInfo] = useState<Hotel>();
@@ -38,6 +50,7 @@ export default function HotelDetail(props: any, state: any) {
   const [sentimentRatios, setSentimentRatios] = useState<SentimentRatio[]>([]);
   const [keywords, setKeywords] = useState<string[]>([]);
   const [aspects, setAspects] = useState<Aspect>();
+  const [coverShow, setCoverShow] = useState<boolean>(true);
 
   useEffect(() => {
     setHotelId(location.state);
@@ -66,6 +79,14 @@ export default function HotelDetail(props: any, state: any) {
     });
   }, []);
 
+  useEffect(() => {
+    if (coverShow) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "unset";
+    }
+  }, [coverShow]);
+
   return (
     <>
       <TopBar></TopBar>
@@ -93,10 +114,15 @@ export default function HotelDetail(props: any, state: any) {
           </Wrap>
           <Wrap style={{ marginTop: 20 }}>
             <ScoresCard data={scoreCnts} />
-            <AspectReviewCard />
+            <AspectReviewCard onClick={() => setCoverShow(true)} />
           </Wrap>
         </CenterDiv>
       </Background>
+      <Reviews
+        classes={classes}
+        coverShow={coverShow}
+        setCoverShow={setCoverShow}
+      />
     </>
   );
 }
