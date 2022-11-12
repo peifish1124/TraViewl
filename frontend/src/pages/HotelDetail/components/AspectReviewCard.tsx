@@ -40,19 +40,16 @@ const IconDiv = styled.div`
   }
 `;
 
-export function AspectReviewCard() {
-  const aspects = [
-    "房間",
-    "早餐",
-    "游泳池",
-    "停車",
-    "交通",
-    "浴室",
-    "景觀",
-    "服務",
-    "健身房",
-    "晚餐",
-  ];
+interface AspectReviewCardProps {
+  data?: string[] | undefined;
+}
+
+export function AspectReviewCard(props?: AspectReviewCardProps) {
+  let aspects = props?.data;
+  if(!aspects) {
+    aspects = [];
+  }
+  
   const mid = Math.round(aspects.length / 2);
   const left = aspects.slice(0, mid);
   const right = aspects.slice(mid);

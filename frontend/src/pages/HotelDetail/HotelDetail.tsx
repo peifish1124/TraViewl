@@ -24,6 +24,7 @@ import {
   getSentimentRatio,
   getKeyword,
   getHotelContent,
+  getFixedAspect,
 } from "../../toBackend/api";
 import { Aspect } from "../../models/Aspect";
 
@@ -38,6 +39,7 @@ export default function HotelDetail(props: any, state: any) {
   const [sentimentRatios, setSentimentRatios] = useState<SentimentRatio[]>([]);
   const [keywords, setKeywords] = useState<string[]>([]);
   const [aspects, setAspects] = useState<Aspect>();
+  const [fixedAspects, setFixedAspects] = useState<string[]>([]);
 
   useEffect(() => {
     setHotelId(location.state);
@@ -63,6 +65,9 @@ export default function HotelDetail(props: any, state: any) {
     }); // hotelId
     getHotelContent("636d32111a537da8fd0a1bb2").then((ct) => {
       setAspects(ct);
+    });
+    getFixedAspect("636d32111a537da8fd0a1bb2").then((fa) => {
+      setFixedAspects(fa);
     });
   }, []);
 
@@ -93,7 +98,7 @@ export default function HotelDetail(props: any, state: any) {
           </Wrap>
           <Wrap style={{ marginTop: 20 }}>
             <ScoresCard data={scoreCnts} />
-            <AspectReviewCard />
+            <AspectReviewCard data={fixedAspects} />
           </Wrap>
         </CenterDiv>
       </Background>

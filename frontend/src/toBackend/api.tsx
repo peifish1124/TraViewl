@@ -30,3 +30,12 @@ export async function getKeyword(hotelId: string) {
   const { keyword }: { keyword: string[] } = await getHotel(hotelId);
   return keyword;
 }
+
+async function getAspectReview(hotelId: string) {
+  return await axios.get(`/hotels/aspect/${hotelId}`).then((res) => res.data);
+}
+
+export async function getFixedAspect(hotelId: string) {
+  const aspect_review = await getAspectReview(hotelId);
+  return Object.keys(aspect_review);
+}
