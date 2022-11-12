@@ -34,6 +34,21 @@ def getHotels():
 
     return returnData
 
+def getHotelContent(hotel_id):
+    db = connect()
+    parsing = db.Parsing
+
+    dataP = list(parsing.find({"hotel_id": hotel_id}))
+    print(dataP)
+    returnData = {
+        x["aspect"] : {y["opinion"]: y["sentiment"] for y in dataP if y["aspect"] == x["aspect"]} 
+        for x in dataP
+    }
+
+    # print(returnData)
+
+    return returnData
+
 def getHotelById(hotel_id):
     db = connect()
     hotel = db.Hotel

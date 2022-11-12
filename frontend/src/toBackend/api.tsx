@@ -1,6 +1,7 @@
 import { Hotel } from "../models/Hotel";
 import axios from "./axios";
 import { SentimentRatio } from "../models/SentimentRatio";
+import { Aspect } from "../models/Aspect";
 
 export async function getHotels() {
   return await axios.get("/hotels").then((res) => {
@@ -10,18 +11,23 @@ export async function getHotels() {
 }
 
 async function getHotel(hotelId: string) {
-  return (
-    await axios.get(`/hotels/${hotelId}`)
-    .then(res => res.data)    
-  )
+  return await axios.get(`/hotels/${hotelId}`).then((res) => res.data);
+}
+
+export async function getHotelContent(hotelId: string) {
+  return await axios.get(`/hotels/content/${hotelId}`).then((res) => {
+    console.log("aspect:", res.data as Aspect);
+    return res.data as Aspect;
+  });
 }
 
 export async function getSentimentRatio(hotelId: string) {
-  const { sentiment_ratio }: {sentiment_ratio: SentimentRatio[]} = await getHotel(hotelId);
+  const { sentiment_ratio }: { sentiment_ratio: SentimentRatio[] } =
+    await getHotel(hotelId);
   return sentiment_ratio;
 }
 
 export async function getKeyword(hotelId: string) {
-  const { keyword }: {keyword: string[]} = await getHotel(hotelId);
+  const { keyword }: { keyword: string[] } = await getHotel(hotelId);
   return keyword;
 }

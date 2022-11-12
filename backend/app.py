@@ -1,6 +1,6 @@
 from crypt import methods
 from flask import Flask, jsonify
-from database import connect, getHotels, getHotelById
+from database import connect, getHotelContent, getHotels, getHotelById
 from bson.json_util import dumps
 from flask_cors import CORS
 
@@ -27,6 +27,11 @@ def hotels():
 def hotel(hotel_id):
     data = getHotelById(hotel_id)
     return jsonify(data)
+
+@app.route("/hotels/content/<hotel_id>", methods=["GET"])
+def hotelContent(hotel_id):
+    data = getHotelContent(hotel_id)
+    return dumps(data)
 
 
 if __name__ == '__main__':

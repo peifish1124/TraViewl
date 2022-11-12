@@ -9,7 +9,7 @@ import hotels from "../../assets/temp/hotel";
 import { Hotel } from "../../models/Hotel";
 import { SentimentRatio } from "../../models/SentimentRatio";
 import styled from "styled-components";
-import aspects from "../../assets/temp/aspects";
+// import aspects from "../../assets/temp/aspects";
 import { amounts } from "../../assets/temp/amount";
 import scoreCnts from "../../assets/temp/scoreCnt";
 import { SentimentRatioCard } from "./components/SentimentRatioCard";
@@ -20,8 +20,12 @@ import { ScoresCard } from "./components/ScoreCardProps";
 import { AspectReviewCard } from "./components/AspectReviewCard";
 import TopBar from "../../components/TopBar";
 
-import { getSentimentRatio, getKeyword } from '../../toBackend/api';
-
+import {
+  getSentimentRatio,
+  getKeyword,
+  getHotelContent,
+} from "../../toBackend/api";
+import { Aspect } from "../../models/Aspect";
 
 const subTitleRe = /(\w+)/;
 
@@ -33,6 +37,7 @@ export default function HotelDetail(props: any, state: any) {
   const [hotelSubTitle, setHotelSubTitle] = useState<String>();
   const [sentimentRatios, setSentimentRatios] = useState<SentimentRatio[]>([]);
   const [keywords, setKeywords] = useState<string[]>([]);
+  const [aspects, setAspects] = useState<Aspect>();
 
   useEffect(() => {
     setHotelId(location.state);
@@ -48,11 +53,17 @@ export default function HotelDetail(props: any, state: any) {
       hotels[0]?.Name?.substring(indC || hotels[0]?.Name?.length)
     );
 
-    console.log('hotelId:', hotelId);
-    
-    getSentimentRatio("636d32111a537da8fd0a1bb2").then(sr => { setSentimentRatios(sr) }); // hotelId
-    getKeyword("636d32111a537da8fd0a1bb2").then(kw => { setKeywords(kw) }); // hotelId
-    
+    // console.log("hotelId:", hotelId);
+
+    getSentimentRatio("636d32111a537da8fd0a1bb2").then((sr) => {
+      setSentimentRatios(sr);
+    }); // hotelId
+    getKeyword("636d32111a537da8fd0a1bb2").then((kw) => {
+      setKeywords(kw);
+    }); // hotelId
+    getHotelContent("636d32111a537da8fd0a1bb2").then((ct) => {
+      setAspects(ct);
+    });
   }, []);
 
   return (
@@ -75,7 +86,7 @@ export default function HotelDetail(props: any, state: any) {
             <KeywordsCard data={keywords} />
           </Wrap>
           <Wrap style={{ marginTop: 20 }}>
-            <AspectCard items={aspects} />
+            {aspects ? <AspectCard items={aspects} /> : null}
           </Wrap>
           <Wrap style={{ marginTop: 20 }}>
             <AmountCard data={amounts} />
