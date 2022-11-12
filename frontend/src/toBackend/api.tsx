@@ -16,7 +16,6 @@ async function getHotel(hotelId: string) {
 
 export async function getHotelContent(hotelId: string) {
   return await axios.get(`/hotels/content/${hotelId}`).then((res) => {
-    console.log("aspect:", res.data as Aspect);
     return res.data as Aspect;
   });
 }
