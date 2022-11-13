@@ -7,16 +7,19 @@ import { Hotel } from "../../models/Hotel";
 
 interface HotelCardProps {
   item?: Hotel | undefined;
+  style?: React.CSSProperties | undefined;
 }
 
 const Title = styled.h3`
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
+  position: relative;
   :hover {
     text-decoration: underline;
   }
 `;
+
 const Row = styled.div`
   display: flex;
   flex-direction: row;
@@ -24,6 +27,7 @@ const Row = styled.div`
   align-items: center;
   margin: 5px;
   width: 240;
+  // background: red;
 `;
 
 const Scroll = styled.div`
@@ -45,6 +49,21 @@ const Icon = styled.img`
   width: 20px;
 `;
 
+const Container = (props: { children: any }) => {
+  return (
+    <div
+      style={{
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        width: 292,
+      }}
+    >
+      {props.children}
+    </div>
+  );
+};
+
 export function HotelCard(props?: HotelCardProps) {
   const navigate = useNavigate();
   const onClick = () => {
@@ -57,63 +76,72 @@ export function HotelCard(props?: HotelCardProps) {
     });
   };
   return (
-    <Box
-      style={{
-        height: 360,
-        width: 280,
-        background: "#FFFFFF",
-        marginTop: 12,
-      }}
-    >
-      <img
-        src={props?.item?.Home_Image}
-        style={{ height: 176.204, width: 280 }}
-      ></img>
-      <div style={{ width: 240, margin: "auto" }}>
-        <Title onClick={onClick}>{props?.item?.Name}</Title>
-        <Row style={{ marginTop: 10 }}>
-          <Icon src={require("../../assets/location.png")} />
-          <Text>
-            {props?.item?.District}, {props?.item?.County}
-          </Text>
-        </Row>
-        <Row>
-          <Icon src={require("../../assets/advantage.png")} />
-          <Scroll>
-            {props?.item?.Advantage?.map((item) => {
-              return (
-                <Tag
-                  title={item}
-                  style={{
-                    fontSize: 14,
-                    height: 20,
-                    justifyContent: "center",
-                    marginRight: 9,
-                    padding: 2,
-                  }}
-                />
-              );
-            })}
-          </Scroll>
-        </Row>
-        <Row style={{ marginTop: 10 }}>
-          <Icon src={require("../../assets/disadvantage.png")} />
-          {props?.item?.Disadvantage?.map((item) => {
-            return (
-              <Tag
-                title={item}
-                style={{
-                  fontSize: 14,
-                  height: 20,
-                  justifyContent: "center",
-                  marginRight: 9,
-                  padding: 2,
-                }}
-              />
-            );
-          })}
-        </Row>
-      </div>
-    </Box>
+    <Container>
+      <Box
+        style={{
+          height: 360,
+          width: 280,
+          background: "#FFFFFF",
+          marginTop: 12,
+          // marginLeft: 12,
+        }}
+      >
+        <img
+          src={props?.item?.Home_Image}
+          style={{ height: 176.204, width: 280 }}
+        ></img>
+        <div style={{ width: 240, margin: "auto" }}>
+          <Title title={props?.item?.Name || undefined} onClick={onClick}>
+            {props?.item?.Name}
+            {/* <Reminder>{props?.item?.Name}</Reminder> */}
+          </Title>
+
+          <Row>
+            <Icon src={require("../../assets/location.png")} />
+            <Text>
+              {props?.item?.District}, {props?.item?.County}
+            </Text>
+          </Row>
+          <Row>
+            <Icon src={require("../../assets/advantage.png")} />
+            <Scroll>
+              {props?.item?.Advantage?.map((item) => {
+                return (
+                  <Tag
+                    title={item}
+                    style={{
+                      fontSize: 14,
+                      height: 20,
+                      justifyContent: "center",
+                      marginRight: 9,
+                      padding: 2,
+                    }}
+                  />
+                );
+              })}
+            </Scroll>
+          </Row>
+          <Row>
+            <Icon src={require("../../assets/disadvantage.png")} />
+            <Scroll>
+              {props?.item?.Disadvantage?.map((item) => {
+                return (
+                  <Tag
+                    title={item}
+                    style={{
+                      fontSize: 14,
+                      height: 20,
+                      justifyContent: "center",
+                      marginRight: 9,
+                      padding: 2,
+                    }}
+                  />
+                );
+              })}
+            </Scroll>
+          </Row>
+        </div>
+      </Box>
+    </Container>
   );
 }
