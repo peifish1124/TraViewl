@@ -21,6 +21,7 @@ const SideDiv = styled.div`
   padding: 1em;
   margin: 0 1em 1em 1em;
   height: 100%;
+  justify-content: space-between;
 `;
 
 const SideRow = styled.div`
@@ -28,7 +29,6 @@ const SideRow = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: 20px;
-  padding-bottom: 0.9em;
 `;
 
 const IconDiv = styled(Button)`
@@ -84,6 +84,7 @@ export function AspectReviewCard(props: {
     <Card style={{ flex: 6 }}>
       <Title>面向相關評論</Title>
       <Main
+        disableOverflow={true}
         style={{
           paddingTop: "0.5em",
           position: "relative",
