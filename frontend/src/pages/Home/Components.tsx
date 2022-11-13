@@ -20,9 +20,22 @@ const Title = styled.h3`
 const Row = styled.div`
   display: flex;
   flex-direction: row;
-  height: 20px;
+  height: 30px;
   align-items: center;
   margin: 5px;
+  width: 240;
+`;
+
+const Scroll = styled.div`
+  display: flex;
+  white-space: nowrap;
+  overflow-x: auto;
+  flex-direction: row;
+  align-items: center;
+  height: 30px;
+  &::-webkit-scrollbar {
+    height: 1px;
+  }
 `;
 const Text = styled.p`
   height: 20px;
@@ -64,22 +77,39 @@ export function HotelCard(props?: HotelCardProps) {
             {props?.item?.District}, {props?.item?.County}
           </Text>
         </Row>
-        <Row style={{ marginTop: 10 }}>
+        <Row>
           <Icon src={require("../../assets/advantage.png")} />
-          {props?.item?.Advantage?.map((item) => {
-            return (
-              <Tag
-                title={item}
-                style={{ fontSize: "15px", width: "70px", marginLeft: 2 }}
-              />
-            );
-          })}
+          <Scroll>
+            {props?.item?.Advantage?.map((item) => {
+              return (
+                <Tag
+                  title={item}
+                  style={{
+                    fontSize: 14,
+                    height: 20,
+                    justifyContent: "center",
+                    marginRight: 9,
+                    padding: 2,
+                  }}
+                />
+              );
+            })}
+          </Scroll>
         </Row>
         <Row style={{ marginTop: 10 }}>
           <Icon src={require("../../assets/disadvantage.png")} />
           {props?.item?.Disadvantage?.map((item) => {
             return (
-              <Tag title={item} style={{ fontSize: "15px", marginLeft: 2 }} />
+              <Tag
+                title={item}
+                style={{
+                  fontSize: 14,
+                  height: 20,
+                  justifyContent: "center",
+                  marginRight: 9,
+                  padding: 2,
+                }}
+              />
             );
           })}
         </Row>
