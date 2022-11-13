@@ -4,6 +4,7 @@ import { SentimentRatio } from "../models/SentimentRatio";
 import { Aspect } from "../models/Aspect";
 import { AspectReview } from "../models/AspectReview";
 import { ScoreCnt } from "../models/ScoreCnt";
+import { AmountData } from "../models/AmountData";
 
 export async function getHotels() {
   return await axios.get("/hotels").then((res) => {
@@ -49,8 +50,10 @@ export async function getHotelAspect(hotelId: string) {
 //   return Object.keys(aspect_review);
 // }
 
-async function getAmount(hotelId: string) {
-  return await axios.get(`/hotels/amount/${hotelId}`).then(res => res.data);
+export async function getAmount(hotelId: string) {
+  return await axios
+    .get(`/hotels/amount/${hotelId}`)
+    .then((res) => res.data as AmountData[]);
 }
 
 export async function getScoreCnts(hotelId: string) {
@@ -62,7 +65,7 @@ export async function getScoreCnts(hotelId: string) {
     _6up: 0,
     _4up: 0,
     _2up: 0,
-    _0up: 0
+    _0up: 0,
   } as ScoreCnt;
 
   for (let i = 0; i < stars.length; i++) {

@@ -12,6 +12,7 @@ import {
   PointElement,
 } from "chart.js";
 import { Main, Title } from "./Components";
+import { DateTime } from "luxon";
 import { Line } from "react-chartjs-2";
 
 ChartJS.register(
@@ -46,7 +47,9 @@ const ACard = (props: any) => {
 
 export function AmountCard(props: AmountCardProps) {
   const [data, setData] = useState<ChartData<"line", number[], string>>({
-    labels: props.data.map((v) => v.time),
+    labels: props.data.map((v) =>
+      DateTime.fromHTTP(v.time).toFormat("yyyy-MM")
+    ),
     datasets: [
       {
         data: props.data.map((v) => v.star),

@@ -24,6 +24,7 @@ import {
   getKeyword,
   getHotelContent,
   getHotelAspect,
+  getAmount,
   //   getFixedAspect,
   getScoreCnts,
 } from "../../toBackend/api";
@@ -31,6 +32,7 @@ import { Aspect } from "../../models/Aspect";
 import { ClassNameMap } from "@material-ui/core/styles/withStyles";
 import { Reviews } from "./components/Reviews";
 import { AspectReview, Review } from "../../models/AspectReview";
+import { AmountData } from "../../models/AmountData";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -56,6 +58,7 @@ export default function HotelDetail(props: any, state: any) {
   const [coverShow, setCoverShow] = useState<boolean>(false);
   const [aspectReview, setAspectReview] = useState<AspectReview>();
   const [reviews, setReviews] = useState<Review[]>();
+  const [amounts, setAmounts] = useState<AmountData[]>();
   //   const [fixedAspects, setFixedAspects] = useState<string[]>([]);
   //   const [coverShow, setCoverShow] = useState<boolean>(true);
   const [scoreCnts, setScoreCnts] = useState<object>();
@@ -87,15 +90,19 @@ export default function HotelDetail(props: any, state: any) {
       setAspects(ct);
     });
 
-    getHotelAspect("636d32111a537da8fd0a1bb2").then((ar) => {
+    getHotelAspect(location.state._id).then((ar) => {
       setAspectReview(ar);
       // =======
       //     getFixedAspect("636d32111a537da8fd0a1bb2").then((fa) => {
       //       setFixedAspects(fa);
       // >>>>>>> d08d65d40c9f8a24dd27f123945e5a70df785487
     });
-    getScoreCnts("636d32111a537da8fd0a1bb2").then((sc) => {
+    getScoreCnts(location.state._id).then((sc) => {
       setScoreCnts(sc);
+    });
+
+    getAmount(location.state._id).then((am) => {
+      setAmounts(am);
     });
   }, []);
 
@@ -144,7 +151,7 @@ export default function HotelDetail(props: any, state: any) {
             {aspects ? <AspectCard items={aspects} /> : null}
           </Wrap>
           <Wrap style={{ marginTop: 20 }}>
-            <AmountCard data={amounts} />
+            {amounts ? <AmountCard data={amounts} /> : null}
           </Wrap>
           <Wrap style={{ marginTop: 20 }}>
             <ScoresCard data={scoreCnts} />
