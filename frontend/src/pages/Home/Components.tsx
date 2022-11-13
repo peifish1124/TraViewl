@@ -10,6 +10,9 @@ interface HotelCardProps {
 }
 
 const Title = styled.h3`
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
   :hover {
     text-decoration: underline;
   }
@@ -32,7 +35,13 @@ const Icon = styled.img`
 export function HotelCard(props?: HotelCardProps) {
   const navigate = useNavigate();
   const onClick = () => {
-    navigate("/hotelDetail", { state: props?.item?._id });
+    navigate("/hotelDetail", {
+      state: {
+        _id: props?.item?._id,
+        Home_Image: props?.item?.Home_Image,
+        Name: props?.item?.Name,
+      },
+    });
   };
   return (
     <Box
@@ -44,7 +53,7 @@ export function HotelCard(props?: HotelCardProps) {
       }}
     >
       <img
-        src={require("../../assets/temp/hotelProfile.png")}
+        src={props?.item?.Home_Image}
         style={{ height: 176.204, width: 280 }}
       ></img>
       <div style={{ width: 240, margin: "auto" }}>

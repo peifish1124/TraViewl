@@ -25,7 +25,7 @@ import {
   getHotelContent,
   getHotelAspect,
   //   getFixedAspect,
-  getScoreCnts
+  getScoreCnts,
 } from "../../toBackend/api";
 import { Aspect } from "../../models/Aspect";
 import { ClassNameMap } from "@material-ui/core/styles/withStyles";
@@ -60,30 +60,30 @@ export default function HotelDetail(props: any, state: any) {
   //   const [coverShow, setCoverShow] = useState<boolean>(true);
   const [scoreCnts, setScoreCnts] = useState<object>();
 
-  
   useEffect(() => {
-    setHotelId(location.state);
+    // console.log("state", location.state);
+    setHotelId(location.state._id);
     setHotelInfo(hotels[0]);
     // const titleMatchList = hotels[0]?.Name?.match(/[ w]/);
     // if (titleMatchList && titleMatchList.length !== 0) {
     //   setHotelTitle(hotels[0]?.Name?.replace(titleMatchList[0], ""));
     //   setHotelSubTitle(titleMatchList[0]);
     // }
-    const indC = hotels[0]?.Name?.indexOf("(");
-    setHotelTitle(hotels[0]?.Name?.substring(0, indC));
+    const indC = location.state.Name?.indexOf("(");
+    setHotelTitle(location.state.Name?.substring(0, indC));
     setHotelSubTitle(
-      hotels[0]?.Name?.substring(indC || hotels[0]?.Name?.length)
+      location.state.Name?.substring(indC || location.state.Name?.length)
     );
 
     // console.log("hotelId:", hotelId);
 
-    getSentimentRatio("636d32111a537da8fd0a1bb2").then((sr) => {
+    getSentimentRatio(location.state._id).then((sr) => {
       setSentimentRatios(sr);
     }); // hotelId
-    getKeyword("636d32111a537da8fd0a1bb2").then((kw) => {
+    getKeyword(location.state._id).then((kw) => {
       setKeywords(kw);
     }); // hotelId
-    getHotelContent("636d32111a537da8fd0a1bb2").then((ct) => {
+    getHotelContent(location.state._id).then((ct) => {
       setAspects(ct);
     });
 
@@ -96,7 +96,7 @@ export default function HotelDetail(props: any, state: any) {
     });
     getScoreCnts("636d32111a537da8fd0a1bb2").then((sc) => {
       setScoreCnts(sc);
-    })
+    });
   }, []);
 
   useEffect(() => {
@@ -116,7 +116,7 @@ export default function HotelDetail(props: any, state: any) {
   const showReviews = (aspect: string) => {
     if (aspectReview) {
       setReviews(aspectReview[aspect]);
-      console.log("here", aspectReview[aspect]);
+      // console.log("here", aspectReview[aspect]);
     }
   };
 
@@ -126,7 +126,8 @@ export default function HotelDetail(props: any, state: any) {
       <Toolbar></Toolbar>
       <Background>
         <img
-          src={require("../../assets/temp/hotelProfileDetail.png")}
+          // src={require("../../assets/temp/hotelProfileDetail.png")}
+          src={location.state.Home_Image}
           width="100%"
           height="400px"
         ></img>

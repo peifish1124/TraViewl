@@ -110,7 +110,7 @@ export function Reviews(props: {
   data?: Review[];
   setCoverShow: React.Dispatch<React.SetStateAction<boolean>>;
 }) {
-  console.log("data", props.data || 0);
+  // console.log("data", props.data || 0);
   return (
     <Backdrop className={props.classes.backdrop} open={props.coverShow}>
       <div
