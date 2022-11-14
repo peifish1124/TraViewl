@@ -70,7 +70,7 @@ export function HotelCard(props?: HotelCardProps) {
     navigate("/hotelDetail", {
       state: {
         _id: props?.item?._id,
-        Home_Image: props?.item?.Home_Image,
+        Subpage_Image: props?.item?.Subpage_Image,
         Name: props?.item?.Name,
       },
     });

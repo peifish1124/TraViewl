@@ -6,4 +6,5 @@ export interface Hotel {
   Advantage: string[] | undefined | null;
   Disadvantage: string[] | undefined | null;
   Home_Image: string;
+  Subpage_Image: string;
 }

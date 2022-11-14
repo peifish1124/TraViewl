@@ -25,6 +25,7 @@ def getHotels():
         "County": x["county"],
         "District": x["district"],
         "Home_Image": x["home_image"],
+        "Subpage_Image": x['subpage_image'],
         "Advantage": [ advantage.find_one({"_id": ObjectId(y)})["text"] for y in x["advantage"] ],
         "Disadvantage": [ disadvantage.find_one({"_id": ObjectId(y)})["text"] for y in x["disadvantage"] ]
     } for x in data]

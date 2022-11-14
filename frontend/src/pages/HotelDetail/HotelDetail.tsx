@@ -6,12 +6,10 @@ import { useLocation } from "react-router-dom";
 import { Background, CenterDiv, Wrap } from "../../components/Pages";
 import TitleBar from "../../components/TitleBar";
 import { Card, Title, TitleCard } from "./components/Components";
-import hotels from "../../assets/temp/hotel";
 import { Hotel } from "../../models/Hotel";
 import { SentimentRatio } from "../../models/SentimentRatio";
 import styled from "styled-components";
 // import aspects from "../../assets/temp/aspects";
-import { amounts } from "../../assets/temp/amount";
 import { SentimentRatioCard } from "./components/SentimentRatioCard";
 import { KeywordsCard } from "./components/KeywordsCard";
 import { AspectCard } from "./components/AspectCard";
@@ -66,7 +64,7 @@ export default function HotelDetail(props: any, state: any) {
   useEffect(() => {
     // console.log("state", location.state);
     setHotelId(location.state._id);
-    setHotelInfo(hotels[0]);
+    // setHotelInfo(hotels[0]);
     // const titleMatchList = hotels[0]?.Name?.match(/[ w]/);
     // if (titleMatchList && titleMatchList.length !== 0) {
     //   setHotelTitle(hotels[0]?.Name?.replace(titleMatchList[0], ""));
@@ -134,7 +132,7 @@ export default function HotelDetail(props: any, state: any) {
       <Background>
         <img
           // src={require("../../assets/temp/hotelProfileDetail.png")}
-          src={location.state.Home_Image}
+          src={location.state.Subpage_Image}
           width="100%"
           height="400px"
         ></img>
