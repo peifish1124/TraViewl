@@ -86,6 +86,10 @@ def getHotelById(hotel_id):
         
         return hotel_data
 
+
+def get_time(review):
+    return review.get('time')
+
 def getHotelAmount(hotel_id):
     db = connect()
     review = db.Review
@@ -105,6 +109,8 @@ def getHotelAmount(hotel_id):
         r['time'] = data['time']
         r['star'] = data['star']
         result.append(r)
+    
+    result.sort(key=get_time)
 
     return result
 
