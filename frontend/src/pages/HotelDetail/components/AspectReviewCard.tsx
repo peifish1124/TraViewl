@@ -21,7 +21,6 @@ const SideDiv = styled.div`
   padding: 1em;
   margin: 0 1em 1em 1em;
   height: 100%;
-  justify-content: space-between;
 `;
 
 const SideRow = styled.div`
@@ -29,6 +28,7 @@ const SideRow = styled.div`
   justify-content: space-between;
   align-items: center;
   font-size: 20px;
+  margin: auto 0;
 `;
 
 const IconDiv = styled(Button)`
