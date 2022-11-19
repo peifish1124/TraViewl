@@ -1,3 +1,5 @@
+import sys, os
+sys.path.append(os.path.join(os.path.dirname(__file__), '..'))
 from bson.objectid import ObjectId
 from datetime import datetime
 import pandas as pd
