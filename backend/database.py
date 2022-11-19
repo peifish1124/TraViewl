@@ -137,9 +137,9 @@ def getHotelAspect(hotel_id):
     )['aspect_review']
 
     result = dict()
-    for aspect, review_ids in aspect_review.items():
+    for aspect in aspect_review:
         review_data = []
-        for review_id in review_ids:
+        for review_id in aspect_review[aspect]:
             review_data.append(review.find_one(
                 {"_id": ObjectId(review_id)},
                 {
@@ -147,8 +147,20 @@ def getHotelAspect(hotel_id):
                     'hotel_id': 0    
                 }
             ))
-        
         result[aspect] = review_data
+
+    # for aspect, review_ids in aspect_review.items():
+    #     review_data = []
+    #     for review_id in review_ids:
+    #         review_data.append(review.find_one(
+    #             {"_id": ObjectId(review_id)},
+    #             {
+    #                 '_id': 0,
+    #                 'hotel_id': 0    
+    #             }
+    #         ))
+        
+    #     result[aspect] = review_data
 
     return result
 
