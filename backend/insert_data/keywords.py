@@ -43,11 +43,11 @@ def get_cnt_and_id(path='../data/keywords_zh_with_count.xlsx'):
 
 def update_hotel(info):
     for name, df in info.items():
-        toUpdate = []
+        toUpdate = {}
         for idx, row in df.iterrows():
             _id = str(row['_id'])
             cnt = row['count']
-            toUpdate.append({_id: cnt})
+            toUpdate[_id] = cnt
         
         # update
         filter = { 'name': name }

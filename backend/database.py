@@ -80,9 +80,16 @@ def getHotelById(hotel_id):
             })
         hotel_data['sentiment_ratio'] = sentiment_data
 
-        keyword_ids = hotel_data['keyword']
+
+        id_cnt = hotel_data['keyword']
+        keyword_ids = list(id_cnt.keys())
+        
         keyword = db.Keyword
-        keyword_data = [ keyword.find_one({"_id": ObjectId(kid)}, {'_id': 0})['text'] for kid in keyword_ids ]
+        keyword_data = dict()
+        for kid in keyword_ids:
+            text = keyword.find_one({"_id": ObjectId(kid)}, {'_id': 0})['text']
+            keyword_data[text] = id_cnt[kid]
+        
         hotel_data['keyword'] = keyword_data
         
         return hotel_data
