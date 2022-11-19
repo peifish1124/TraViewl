@@ -51,7 +51,7 @@ export default function HotelDetail(props: any, state: any) {
   const [hotelTitle, setHotelTitle] = useState<String>();
   const [hotelSubTitle, setHotelSubTitle] = useState<String>();
   const [sentimentRatios, setSentimentRatios] = useState<SentimentRatio[]>([]);
-  const [keywords, setKeywords] = useState<string[]>([]);
+  const [keywords, setKeywords] = useState<{ [key: string]: number; }>();
   const [aspects, setAspects] = useState<Aspect>();
   const [coverShow, setCoverShow] = useState<boolean>(false);
   const [aspectReview, setAspectReview] = useState<AspectReview>();
