@@ -1,0 +1,16 @@
+aspect,opinion,sentiment
+房間,安靜,positive
+房間,髒亂,negative
+浴室,整潔,positive
+房間,舒適,positive
+房間,普通,neutral
+房間,一般,neutral
+房間,不大,negative
+早餐,油膩,negative
+早餐,好吃,positive
+早餐,划算,positive
+游泳池,漂亮,positive
+游泳池,乾淨,positive
+停車,不方便,negative
+停車,遠,negative
+游泳池,小,negative
