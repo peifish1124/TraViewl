@@ -30,9 +30,9 @@ for hotel in hotelsAll:
         review_data_stars = [x['star'] for x in review_data]
         positive = len([x for x in review_data_stars if x >= higher_q])/len(review_data_stars)
         negative = len([x for x in review_data_stars if x < lower_q])/len(review_data_stars)
-        common = len([x for x in review_data_stars if x < higher_q and x >= lower_q ])/len(review_data_stars)
+        neutral = len([x for x in review_data_stars if x < higher_q and x >= lower_q ])/len(review_data_stars)
         # print(aspect, positive, negative, common)
-        sentiment_ratio[aspect] = {'positive': positive, 'negative': negative, 'common': common}
+        sentiment_ratio[aspect] = {'positive': positive, 'negative': negative, 'neutral': neutral}
     print(sentiment_ratio)
     hotelcl.update_one({'name': hotel['name']}, { "$set": { "sentiment_ratio": sentiment_ratio } })
     # print(aspect_review)
