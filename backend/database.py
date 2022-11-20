@@ -71,12 +71,12 @@ def getHotelById(hotel_id):
         )
 
         sentiment_data = []
-        for k, v in hotel_data['sentiment_ratio'].items():
+        for aspect in hotel_data['sentiment_ratio']:
             sentiment_data.append({
-                'aspect': k,
-                'positive': v[0],
-                'neutral': v[2],
-                'negative': v[1]
+                'aspect': aspect,
+                'positive': hotel_data['sentiment_ratio'][aspect]['positive'] ,
+                'neutral':hotel_data['sentiment_ratio'][aspect]['common'],
+                'negative': hotel_data['sentiment_ratio'][aspect]['negative']
             })
         hotel_data['sentiment_ratio'] = sentiment_data
 
