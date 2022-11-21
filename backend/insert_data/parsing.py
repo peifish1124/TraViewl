@@ -16,12 +16,12 @@ db = client.TraViewl
 df = pd.read_csv('data/temp_parsing.csv')
 
 parsing = db.Parsing
-parsing.delete_many({})
+# parsing.delete_many({})
 
 # parsing
 for i in range(len(df["aspect"])):
     parsingData = {
-        "hotel_id": "637397cd39de7355c1044df8",
+        "hotel_id": "637397cd39de7355c1044df7",
         "review_id": "",
         "aspect": df['aspect'][i],
         "opinion": df['opinion'][i],
