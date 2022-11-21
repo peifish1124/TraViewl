@@ -1,5 +1,5 @@
 export interface AmountData {
-  review_id: string;
+  // review_id: string;
   time: string;
-  star: number;
+  review_Cnt: number;
 }

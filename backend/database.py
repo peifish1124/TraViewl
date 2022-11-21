@@ -4,6 +4,7 @@ import os
 import pymongo
 from bson.objectid import ObjectId
 from datetime import datetime
+from dateutil.relativedelta import relativedelta
 
 
 def connect():
@@ -40,12 +41,12 @@ def getHotelContent(hotel_id):
     parsing = db.Parsing
 
     dataP = list(parsing.find({"hotel_id": hotel_id}))
-    print(dataP)
+    # print(dataP)
     returnData = {
         x["aspect"] : {y["opinion"]: y["sentiment"] for y in dataP if y["aspect"] == x["aspect"]} 
         for x in dataP
     }
-
+    # print(returnData)
     return returnData
 
 def getHotelById(hotel_id):
@@ -110,17 +111,46 @@ def getHotelAmount(hotel_id):
         }
     ))
 
-    result = []
-    for data in review_data:
-        r = dict()
-        r['review_id'] = str(data['_id'])
-        r['time'] = data['time']
-        r['star'] = data['star']
-        result.append(r)
     
-    result.sort(key=get_time)
+    review_data.sort(key=get_time)
+    result = {}
+    tempTime = review_data[0]['time']
+    maxTime = review_data[len(review_data)-1]['time']
+    while tempTime.year*100 + tempTime.month <= maxTime.year*100 + maxTime.month:
+        result[str(tempTime.year)+"-"+str(tempTime.month)] = 0
+        tempTime = tempTime + relativedelta(months=1)
+
+    for data in review_data:
+        result[str(data['time'].year) + '-' + str(data['time'].month)] += 1
+
+    returnData = []
+    for ym in result:
+        returnData.append({'time': ym, 'review_Cnt': result[ym]})
+    # datetime.now().
+    print(returnData)
+
+    return returnData
+
+def getHotelStars(hotel_id):
+    db = connect()
+    review = db.Review
+    
+    review_data = list(review.find(
+        {"hotel_id": hotel_id},
+        {
+            'time': 1,
+            'star': 1
+        }
+    ))
+
+    result = [{
+        'time': x['time'],
+        'star': x['star'],
+    } for x in review_data]
 
     return result
+
+
 
 def getHotelAspect(hotel_id):
     db = connect()

@@ -47,12 +47,14 @@ const ACard = (props: any) => {
 
 export function AmountCard(props: AmountCardProps) {
   const [data, setData] = useState<ChartData<"line", number[], string>>({
-    labels: props.data.map((v) =>
-      DateTime.fromHTTP(v.time).toFormat("yyyy-MM")
+    labels: props.data.map(
+      (v) =>
+        // DateTime.fromHTTP(v.time).toFormat("yyyy-MM")
+        v.time
     ),
     datasets: [
       {
-        data: props.data.map((v) => v.star),
+        data: props.data.map((v) => v.review_Cnt),
         backgroundColor: "#427FA0",
         borderColor: "#427FA0",
         pointStyle: "circle",
@@ -72,7 +74,7 @@ export function AmountCard(props: AmountCardProps) {
                 },
                 title: {
                   display: true,
-                  text: "評論數",
+                  text: "月份",
                   font: {
                     family: "Times",
                     size: 20,
@@ -87,7 +89,7 @@ export function AmountCard(props: AmountCardProps) {
                 },
                 title: {
                   display: true,
-                  text: "月份",
+                  text: "評論數",
                   font: {
                     family: "Times",
                     size: 20,
