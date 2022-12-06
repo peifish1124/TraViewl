@@ -47,7 +47,7 @@ export function KeywordsCard(props?: KeywordsCardProps) {
 
 
   return (
-    <Card style={{ flex: 2, position: 'relative' }}>
+    <Card style={{ flex: 4, position: 'relative' }}>
       <Title style={{ paddingBottom: "0.5em" }}>評論關鍵字</Title>
       <KMain>
         {text.map((k, i) => (

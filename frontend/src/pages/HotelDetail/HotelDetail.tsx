@@ -3,6 +3,7 @@ import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { stat } from "fs";
 import React, { useEffect, useRef, useState } from "react";
 import { useLocation } from "react-router-dom";
+import { Word } from "react-wordcloud";
 import { Background, CenterDiv, Wrap } from "../../components/Pages";
 import TitleBar from "../../components/TitleBar";
 import { Card, Title, TitleCard } from "./components/Components";
@@ -18,8 +19,9 @@ import { ScoresCard } from "./components/ScoresCard";
 import { AspectReviewCard } from "./components/AspectReviewCard";
 import TopBar from "../../components/TopBar";
 import {
-  getSentimentRatio,
-  getKeyword,
+  getHotel,
+  // getSentimentRatio,
+  // getKeyword,
   getHotelContent,
   getHotelAspect,
   getAmount,
@@ -52,6 +54,8 @@ export default function HotelDetail(props: any, state: any) {
   const [hotelSubTitle, setHotelSubTitle] = useState<String>();
   const [sentimentRatios, setSentimentRatios] = useState<SentimentRatio[]>([]);
   const [keywords, setKeywords] = useState<{ [key: string]: number; }>();
+  const [wordcloud, setWordcloud] = useState<{ [key: string]: Word[]; }>();
+  const [summarize, setSummarize] = useState<{ [key: string]: string; }>();
   const [aspects, setAspects] = useState<Aspect>();
   const [coverShow, setCoverShow] = useState<boolean>(false);
   const [aspectReview, setAspectReview] = useState<AspectReview>();
@@ -76,14 +80,13 @@ export default function HotelDetail(props: any, state: any) {
       location.state.Name?.substring(indC || location.state.Name?.length)
     );
 
-    // console.log("hotelId:", hotelId);
-
-    getSentimentRatio(location.state._id).then((sr) => {
-      setSentimentRatios(sr);
-    }); // hotelId
-    getKeyword(location.state._id).then((kw) => {
-      setKeywords(kw);
-    }); // hotelId
+    getHotel(location.state._id).then(({sentiment_ratio, keyword, word_cloud, summarize}) => {
+      setSentimentRatios(sentiment_ratio);
+      setKeywords(keyword);
+      setWordcloud(word_cloud);
+      setSummarize(summarize);
+    })
+    
     getHotelContent(location.state._id).then((ct) => {
       setAspects(ct);
     });
@@ -142,8 +145,13 @@ export default function HotelDetail(props: any, state: any) {
         </TitleCard>
         <CenterDiv style={{ paddingBottom: 100 }}>
           <Wrap>
-            <SentimentRatioCard data={sentimentRatios} />
-            <KeywordsCard data={keywords} />
+            <SentimentRatioCard
+              data={sentimentRatios}
+              wordcloud={wordcloud}
+              summarize={summarize}
+              aspectReview={aspectReview}
+              onClick={showReviews}
+            />
           </Wrap>
           <Wrap style={{ marginTop: 20 }}>
             {aspects ? <AspectCard items={aspects} /> : null}
@@ -153,7 +161,8 @@ export default function HotelDetail(props: any, state: any) {
           </Wrap>
           <Wrap style={{ marginTop: 20 }}>
             <ScoresCard data={scoreCnts} />
-            <AspectReviewCard onClick={showReviews} aspect={aspectReview} />
+            <KeywordsCard data={keywords} />
+            {/* <AspectReviewCard onClick={showReviews} aspect={aspectReview} /> */}
             {/* =======
             <AspectReviewCard onClick={() => setCoverShow(true)} data={fixedAspects} />
 >>>>>>> d08d65d40c9f8a24dd27f123945e5a70df785487 */}

@@ -66,7 +66,7 @@ export function ScoresCard(props: ScoreCardProps) {
     <Card style={{ flex: 5, marginRight: "1em", position: "relative" }}>
       <Title>分數統計</Title>
       <TitleRight>共 {sum} 則評論</TitleRight>
-      <Main>{getRows(data, max)}</Main>
+      <Main disableOverflow={true}>{getRows(data, max)}</Main>
       <Blank></Blank>
     </Card>
   );

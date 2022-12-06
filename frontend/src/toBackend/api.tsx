@@ -13,8 +13,10 @@ export async function getHotels() {
   });
 }
 
-async function getHotel(hotelId: string) {
-  return await axios.get(`/hotels/${hotelId}`).then((res) => res.data);
+export async function getHotel(hotelId: string) {
+  const {sentiment_ratio, keyword, word_cloud, summarize} = await axios.get(`/hotels/${hotelId}`).then((res) => res.data);
+
+  return {sentiment_ratio, keyword, word_cloud, summarize};
 }
 
 export async function getHotelContent(hotelId: string) {
@@ -22,19 +24,6 @@ export async function getHotelContent(hotelId: string) {
     // console.log(res.data);
     return res.data as Aspect;
   });
-}
-
-export async function getSentimentRatio(hotelId: string) {
-  const { sentiment_ratio }: { sentiment_ratio: SentimentRatio[] } =
-    await getHotel(hotelId);
-  return sentiment_ratio;
-}
-
-export async function getKeyword(hotelId: string) {
-  const { keyword }: { keyword: { [key: string]: number } } = await getHotel(
-    hotelId
-  );
-  return keyword;
 }
 
 export async function getHotelAspect(hotelId: string) {

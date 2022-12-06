@@ -67,7 +67,9 @@ def getHotelById(hotel_id):
                 'name': 1,
                 'subpage_image': 1,
                 'sentiment_ratio': 1,
-                'keyword': 1
+                'keyword': 1,
+                'word_cloud': 1,
+                'summarize': 1
             }
         )
 
@@ -92,7 +94,7 @@ def getHotelById(hotel_id):
             keyword_data[text] = id_cnt[kid]
         
         hotel_data['keyword'] = keyword_data
-        
+
         return hotel_data
 
 
@@ -127,7 +129,7 @@ def getHotelAmount(hotel_id):
     for ym in result:
         returnData.append({'time': ym, 'review_Cnt': result[ym]})
     # datetime.now().
-    print(returnData)
+    # print(returnData)
 
     return returnData
 
@@ -168,7 +170,7 @@ def getHotelAspect(hotel_id):
 
     result = dict()
     for aspect in aspect_review:
-        review_data = review.find({"_id": {"$in": [ ObjectId(x) for x in aspect_review[aspect]]}})
+        review_data = review.find({"_id": {"$in": [ ObjectId(x) for x in aspect_review[aspect]]}}).sort([('importance', -1), ('time', -1)])
         
         result[aspect] = [{
             'bad_text': x['bad_text'],
@@ -180,8 +182,6 @@ def getHotelAspect(hotel_id):
             'time': x['time'],
             'title': x['title'],
         } for x in review_data]
-
-   
 
     return result
 
