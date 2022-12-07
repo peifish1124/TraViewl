@@ -125,9 +125,9 @@ export function SentimentRatioCard(props: SentimentRatioCardProps) {
 
   const getCarousel = (aspectReview: AspectReview|undefined, aspect: string, sentimentIdx: number) => {
     if (!aspectReview) return [];
-    if (sentimentIdx === 0) return aspectReview[aspect].filter(r => r.star >= 10.0).slice(0, 9).map(({title, good_text, star}) => { return {name: title, description: good_text, star} });
+    if (sentimentIdx === 0) return aspectReview[aspect].filter(r => r.star >= 10.0).slice(0, 9).map(({title, normal_text, star}) => { return {name: title, description: normal_text, star} });
     if (sentimentIdx === 1) return aspectReview[aspect].filter(r => r.star >= 7.6 && r.star < 10.0).slice(0, 9).map(({title, normal_text, star}) => { return {name: title, description: normal_text, star} });
-    if (sentimentIdx === 2) return aspectReview[aspect].filter(r => r.star < 7.6).slice(0, 9).map(({title, bad_text, star}) => { return {name: title, description: bad_text, star} });
+    if (sentimentIdx === 2) return aspectReview[aspect].filter(r => r.star < 7.6).slice(0, 9).map(({title, normal_text, star}) => { return {name: title, description: normal_text, star} });
   };
 
   const Item = ({item}: any) => {
