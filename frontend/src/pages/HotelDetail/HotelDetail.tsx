@@ -122,9 +122,11 @@ export default function HotelDetail(props: any, state: any) {
   }, [reviews]);
 
   const showReviews = (aspect: string) => {
-    if (aspectReview) {
+    if (aspectReview && reviews === aspectReview[aspect]) {
+      setCoverShow(true);
+    } else if (aspectReview) {
       setReviews(aspectReview[aspect]);
-      // console.log("here", aspectReview[aspect]);
+      console.log("here", aspectReview[aspect]);
     }
   };
 

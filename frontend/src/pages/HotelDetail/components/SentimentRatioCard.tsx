@@ -21,7 +21,7 @@ import {
   SText,
   Title,
 } from "./Components";
-import { AspectReview } from '../../../models/AspectReview'
+import { AspectReview, Review } from '../../../models/AspectReview'
 
 
 interface WrapProps {
@@ -61,44 +61,12 @@ interface SentimentRatioCardProps {
   onClick: Function;
 }
 
-// fake carousel
-let items = [1, 2, 3, 4, 5, 6, 7, 8, 9].map( i => (
-  {
-    name: `Random Name #${i} Random Name #${i} Random Name #${i} Random Name #${i}`,
-    description: `餐廳好吃 房間舒適
-    飯店整體裝潢高雅 高貴 設施一流,服務很好 餐廳又很好吃!!!實在是太迷人
-     地理位置又好 ,來到台北妳一定要選擇的一流五星級飯店!!
-     餐廳好吃 房間舒適
-    飯店整體裝潢高雅 高貴 設施一流,服務很好 餐廳又很好吃!!!實在是太迷人
-     地理位置又好 ,來到台北妳一定要選擇的一流五星級飯店!!
-     餐廳好吃 房間舒適
-    飯店整體裝潢高雅 高貴 設施一流,服務很好 餐廳又很好吃!!!實在是太迷人
-     地理位置又好 ,來到台北妳一定要選擇的一流五星級飯店!!`,
-    star: 9.9
-  }
-));
-
-
-// fake word cloud
-const words = [
-  { text: '飯店', value: 0.64 },
-  { text: '房間', value: 0.11 },
-  { text: '早餐', value: 0.16 },
-  { text: '乾淨', value: 0.17 },
-  { text: '舒適', value: 0.88 },
-  { text: '安靜', value: 0.15 },
-  { text: '隔音', value: 0.28 },
-  { text: '景觀', value: 0.81 },
-  { text: '好吃', value: 0.36 },
-  { text: '便利', value: 0.25 },
-]
-
 
 export function SentimentRatioCard(props: SentimentRatioCardProps) {
   const { data, wordcloud, summarize, aspectReview } = props;
 
-  const [aspect, setAspect] = useState<string>("房間");
-  const [sentimentIdx, setSentimentIdx] = useState<number>(1);
+  const [aspect, setAspect] = useState<string | number>("房間");
+  const [sentimentIdx, setSentimentIdx] = useState<number>(0);
   const sentiment = ['正向', '中性', '負向'];
   const [carouselItems, setCarouselItems] = useState<object[]>();
 
@@ -106,11 +74,12 @@ export function SentimentRatioCard(props: SentimentRatioCardProps) {
     setCarouselItems(getCarousel(aspectReview, aspect, sentimentIdx));
   }, [aspect, sentimentIdx])
 
+
   const handleAspectChange = (
     event: React.MouseEvent<HTMLElement>,
     newAspect: string,
   ) => {
-    setAspect(newAspect);
+    if (newAspect !== null) setAspect(newAspect);
   };
 
   const getChart = (sentiments: SentimentRatio[]|undefined, aspect: string|number) => {
@@ -123,11 +92,30 @@ export function SentimentRatioCard(props: SentimentRatioCardProps) {
     ]);
   };
 
-  const getCarousel = (aspectReview: AspectReview|undefined, aspect: string, sentimentIdx: number) => {
+  const reviewsToCarousel = (reviews: Review[], sentimentIdx: number) => {
+    const pos_thresh = 10.0;
+    const neg_thresh = 7.6;
+    let all = undefined;
+
+    if (sentimentIdx === 0) {
+      all = reviews.filter(r => r.star >= pos_thresh);
+    } else if (sentimentIdx === 1) {
+      all = reviews.filter(r => r.star >= neg_thresh && r.star < pos_thresh);
+    } else {
+      all = reviews.filter(r => r.star < neg_thresh);
+    }
+
+    let len = all.length % 2 === 0 ? all.length - 1 : all.length;
+    if (len > 9) len = 9;
+
+    return all.slice(0, len).map(({title, normal_text, star}) => (
+      {name: title, description: normal_text, star}
+    ));
+  }
+
+  const getCarousel = (aspectReview: AspectReview|undefined, aspect: string|number, sentimentIdx: number) => {
     if (!aspectReview) return [];
-    if (sentimentIdx === 0) return aspectReview[aspect].filter(r => r.star >= 10.0).slice(0, 9).map(({title, normal_text, star}) => { return {name: title, description: normal_text, star} });
-    if (sentimentIdx === 1) return aspectReview[aspect].filter(r => r.star >= 7.6 && r.star < 10.0).slice(0, 9).map(({title, normal_text, star}) => { return {name: title, description: normal_text, star} });
-    if (sentimentIdx === 2) return aspectReview[aspect].filter(r => r.star < 7.6).slice(0, 9).map(({title, normal_text, star}) => { return {name: title, description: normal_text, star} });
+    return reviewsToCarousel(aspectReview[aspect], sentimentIdx);
   };
 
   const Item = ({item}: any) => {
