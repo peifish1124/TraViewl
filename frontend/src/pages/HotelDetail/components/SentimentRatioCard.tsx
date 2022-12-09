@@ -28,7 +28,7 @@ import {
   SText,
   Title,
 } from "./Components";
-import { AspectReview } from "../../../models/AspectReview";
+import { AspectReview, Review } from "../../../models/AspectReview";
 
 interface WrapProps {
   flex?: number;
@@ -71,20 +71,23 @@ interface SentimentRatioCardProps {
 export function SentimentRatioCard(props: SentimentRatioCardProps) {
   const { data, wordcloud, summarize, aspectReview } = props;
 
-  const [aspect, setAspect] = useState<string>("房間");
+  const [aspect, setAspect] = useState<string | number>("房間");
 
   const sentiment = ["正向", "中性", "負向"];
+
   const [carouselItems, setCarouselItems] = useState<object[]>();
 
   useEffect(() => {
-    setCarouselItems(getCarousel(aspectReview, aspect, props.sentimentIdx));
+    setCarouselItems(
+      getCarousel(aspectReview, aspect.toString(), props.sentimentIdx)
+    );
   }, [aspect, props.sentimentIdx]);
 
   const handleAspectChange = (
     event: React.MouseEvent<HTMLElement>,
     newAspect: string
   ) => {
-    setAspect(newAspect);
+    if (newAspect !== null) setAspect(newAspect);
   };
 
   const getChart = (
@@ -100,33 +103,36 @@ export function SentimentRatioCard(props: SentimentRatioCardProps) {
     ];
   };
 
+  const reviewsToCarousel = (reviews: Review[], sentimentIdx: number) => {
+    const pos_thresh = 10.0;
+    const neg_thresh = 7.6;
+    let all = undefined;
+
+    if (sentimentIdx === 0) {
+      all = reviews.filter((r) => r.star >= pos_thresh);
+    } else if (sentimentIdx === 1) {
+      all = reviews.filter((r) => r.star >= neg_thresh && r.star < pos_thresh);
+    } else {
+      all = reviews.filter((r) => r.star < neg_thresh);
+    }
+
+    let len = all.length % 2 === 0 ? all.length - 1 : all.length;
+    if (len > 9) len = 9;
+
+    return all.slice(0, len).map(({ title, normal_text, star }) => ({
+      name: title,
+      description: normal_text,
+      star,
+    }));
+  };
+
   const getCarousel = (
     aspectReview: AspectReview | undefined,
-    aspect: string,
+    aspect: string | number,
     sentimentIdx: number
   ) => {
     if (!aspectReview) return [];
-    if (sentimentIdx === 0)
-      return aspectReview[aspect]
-        .filter((r) => r.star >= 10.0)
-        .slice(0, 9)
-        .map(({ title, good_text, star }) => {
-          return { name: title, description: good_text, star };
-        });
-    if (sentimentIdx === 1)
-      return aspectReview[aspect]
-        .filter((r) => r.star >= 7.6 && r.star < 10.0)
-        .slice(0, 9)
-        .map(({ title, normal_text, star }) => {
-          return { name: title, description: normal_text, star };
-        });
-    if (sentimentIdx === 2)
-      return aspectReview[aspect]
-        .filter((r) => r.star < 7.6)
-        .slice(0, 9)
-        .map(({ title, bad_text, star }) => {
-          return { name: title, description: bad_text, star };
-        });
+    return reviewsToCarousel(aspectReview[aspect], sentimentIdx);
   };
 
   const Item = ({ item }: any) => {
