@@ -1,4 +1,4 @@
-import { Toolbar } from "@mui/material";
+import { CircularProgress, Toolbar } from "@mui/material";
 import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 // import hotels from "../../assets/temp/hotel";
@@ -41,9 +41,15 @@ export default function Home() {
       <Background
         style={{ minHeight: window.innerHeight, justifyContent: "center" }}
       >
-        <Wrap>
-          {hotels ? hotels.map((item) => <HotelCard item={item} />) : null}
-        </Wrap>
+        {hotels ? (
+          <Wrap>
+            {hotels.map((item) => (
+              <HotelCard item={item} />
+            ))}
+          </Wrap>
+        ) : (
+          <CircularProgress />
+        )}
       </Background>
     </>
   );
