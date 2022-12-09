@@ -53,9 +53,9 @@ export default function HotelDetail(props: any, state: any) {
   const [hotelTitle, setHotelTitle] = useState<String>();
   const [hotelSubTitle, setHotelSubTitle] = useState<String>();
   const [sentimentRatios, setSentimentRatios] = useState<SentimentRatio[]>([]);
-  const [keywords, setKeywords] = useState<{ [key: string]: number; }>();
-  const [wordcloud, setWordcloud] = useState<{ [key: string]: Word[]; }>();
-  const [summarize, setSummarize] = useState<{ [key: string]: string; }>();
+  const [keywords, setKeywords] = useState<{ [key: string]: number }>();
+  const [wordcloud, setWordcloud] = useState<{ [key: string]: Word[] }>();
+  const [summarize, setSummarize] = useState<{ [key: string]: string }>();
   const [aspects, setAspects] = useState<Aspect>();
   const [coverShow, setCoverShow] = useState<boolean>(false);
   const [aspectReview, setAspectReview] = useState<AspectReview>();
@@ -64,6 +64,7 @@ export default function HotelDetail(props: any, state: any) {
   //   const [fixedAspects, setFixedAspects] = useState<string[]>([]);
   //   const [coverShow, setCoverShow] = useState<boolean>(true);
   const [scoreCnts, setScoreCnts] = useState<object>();
+  const [sentimentIdx, setSentimentIdx] = useState<number>(1);
 
   useEffect(() => {
     // console.log("state", location.state);
@@ -80,13 +81,15 @@ export default function HotelDetail(props: any, state: any) {
       location.state.Name?.substring(indC || location.state.Name?.length)
     );
 
-    getHotel(location.state._id).then(({sentiment_ratio, keyword, word_cloud, summarize}) => {
-      setSentimentRatios(sentiment_ratio);
-      setKeywords(keyword);
-      setWordcloud(word_cloud);
-      setSummarize(summarize);
-    })
-    
+    getHotel(location.state._id).then(
+      ({ sentiment_ratio, keyword, word_cloud, summarize }) => {
+        setSentimentRatios(sentiment_ratio);
+        setKeywords(keyword);
+        setWordcloud(word_cloud);
+        setSummarize(summarize);
+      }
+    );
+
     getHotelContent(location.state._id).then((ct) => {
       setAspects(ct);
     });
@@ -123,8 +126,14 @@ export default function HotelDetail(props: any, state: any) {
 
   const showReviews = (aspect: string) => {
     if (aspectReview) {
-      setReviews(aspectReview[aspect]);
-      // console.log("here", aspectReview[aspect]);
+      setReviews(
+        aspectReview[aspect].filter((x) => {
+          if (sentimentIdx === 0) return x.star >= 10.0;
+          if (sentimentIdx === 1) return x.star >= 7.6 && x.star < 10.0;
+          if (sentimentIdx === 2) return x.star < 7.6;
+          return false;
+        })
+      );
     }
   };
 
@@ -151,6 +160,8 @@ export default function HotelDetail(props: any, state: any) {
               summarize={summarize}
               aspectReview={aspectReview}
               onClick={showReviews}
+              setSentimentIdx={setSentimentIdx}
+              sentimentIdx={sentimentIdx}
             />
           </Wrap>
           <Wrap style={{ marginTop: 20 }}>
