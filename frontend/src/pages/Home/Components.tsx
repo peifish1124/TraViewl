@@ -1,6 +1,11 @@
 import { Box } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { Navigate, useNavigate } from "react-router-dom";
+import {
+  createSearchParams,
+  Navigate,
+  URLSearchParamsInit,
+  useNavigate,
+} from "react-router-dom";
 import styled from "styled-components";
 import Tag from "../../components/Tag";
 import { Hotel } from "../../models/Hotel";
@@ -67,12 +72,14 @@ const Container = (props: { children: any }) => {
 export function HotelCard(props?: HotelCardProps) {
   const navigate = useNavigate();
   const onClick = () => {
-    navigate("/hotelDetail", {
-      state: {
-        _id: props?.item?._id,
-        Subpage_Image: props?.item?.Subpage_Image,
-        Name: props?.item?.Name,
-      },
+    const params: URLSearchParamsInit = {
+      _id: props?.item?._id || "",
+      Subpage_Image: props?.item?.Subpage_Image || "",
+      Name: props?.item?.Name || "",
+    };
+    navigate({
+      pathname: "/hotelDetail",
+      search: `?${createSearchParams(params)}`,
     });
   };
   return (
@@ -83,7 +90,6 @@ export function HotelCard(props?: HotelCardProps) {
           width: 280,
           background: "#FFFFFF",
           marginTop: 12,
-          // marginLeft: 12,
         }}
       >
         <img

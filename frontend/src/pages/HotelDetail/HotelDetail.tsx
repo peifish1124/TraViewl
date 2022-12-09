@@ -2,7 +2,7 @@ import { Backdrop, Toolbar } from "@mui/material";
 import { makeStyles, createStyles, Theme } from "@material-ui/core/styles";
 import { stat } from "fs";
 import React, { useEffect, useRef, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { Word } from "react-wordcloud";
 import { Background, CenterDiv, Wrap } from "../../components/Pages";
 import TitleBar from "../../components/TitleBar";
@@ -47,7 +47,8 @@ const useStyles = makeStyles((theme: Theme) =>
 
 export default function HotelDetail(props: any, state: any) {
   const classes = useStyles();
-  const location = useLocation();
+  const [searchParams] = useSearchParams();
+
   const [hotelId, setHotelId] = useState("");
   const [hotelInfo, setHotelInfo] = useState<Hotel>();
   const [hotelTitle, setHotelTitle] = useState<String>();
@@ -67,21 +68,17 @@ export default function HotelDetail(props: any, state: any) {
   const [sentimentIdx, setSentimentIdx] = useState<number>(1);
 
   useEffect(() => {
-    // console.log("state", location.state);
-    setHotelId(location.state._id);
-    // setHotelInfo(hotels[0]);
-    // const titleMatchList = hotels[0]?.Name?.match(/[ w]/);
-    // if (titleMatchList && titleMatchList.length !== 0) {
-    //   setHotelTitle(hotels[0]?.Name?.replace(titleMatchList[0], ""));
-    //   setHotelSubTitle(titleMatchList[0]);
-    // }
-    const indC = location.state.Name?.indexOf("(");
-    setHotelTitle(location.state.Name?.substring(0, indC));
+    setHotelId(searchParams.get("_id") || "");
+
+    const indC = searchParams.get("Name")?.indexOf("(");
+    setHotelTitle(searchParams.get("Name")?.substring(0, indC));
     setHotelSubTitle(
-      location.state.Name?.substring(indC || location.state.Name?.length)
+      searchParams
+        .get("Name")
+        ?.substring(indC || searchParams.get("Name")?.length || 0)
     );
 
-    getHotel(location.state._id).then(
+    getHotel(searchParams.get("_id") || "").then(
       ({ sentiment_ratio, keyword, word_cloud, summarize }) => {
         setSentimentRatios(sentiment_ratio);
         setKeywords(keyword);
@@ -90,22 +87,22 @@ export default function HotelDetail(props: any, state: any) {
       }
     );
 
-    getHotelContent(location.state._id).then((ct) => {
+    getHotelContent(searchParams.get("_id") || "").then((ct) => {
       setAspects(ct);
     });
 
-    getHotelAspect(location.state._id).then((ar) => {
+    getHotelAspect(searchParams.get("_id") || "").then((ar) => {
       setAspectReview(ar);
       // =======
       //     getFixedAspect("636d32111a537da8fd0a1bb2").then((fa) => {
       //       setFixedAspects(fa);
       // >>>>>>> d08d65d40c9f8a24dd27f123945e5a70df785487
     });
-    getScoreCnts(location.state._id).then((sc) => {
+    getScoreCnts(searchParams.get("_id") || "").then((sc) => {
       setScoreCnts(sc);
     });
 
-    getAmount(location.state._id).then((am) => {
+    getAmount(searchParams.get("_id") || "").then((am) => {
       setAmounts(am);
     });
   }, []);
@@ -144,7 +141,7 @@ export default function HotelDetail(props: any, state: any) {
       <Background>
         <img
           // src={require("../../assets/temp/hotelProfileDetail.png")}
-          src={location.state.Subpage_Image}
+          src={searchParams.get("Subpage_Image") || ""}
           width="100%"
           height="400px"
         ></img>
