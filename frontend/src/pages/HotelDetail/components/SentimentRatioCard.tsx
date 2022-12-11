@@ -78,10 +78,8 @@ export function SentimentRatioCard(props: SentimentRatioCardProps) {
   const [carouselItems, setCarouselItems] = useState<object[]>();
 
   useEffect(() => {
-    setCarouselItems(
-      getCarousel(aspectReview, aspect.toString(), props.sentimentIdx)
-    );
-  }, [aspect, props.sentimentIdx]);
+    setCarouselItems(getCarousel(aspectReview, aspect, props.sentimentIdx));
+  }, [aspectReview, aspect, props.sentimentIdx])
 
   const handleAspectChange = (
     event: React.MouseEvent<HTMLElement>,
@@ -254,6 +252,7 @@ export function SentimentRatioCard(props: SentimentRatioCardProps) {
             animation="slide"
             autoPlay={false}
             fullHeightHover={false}
+            index={0}
             navButtonsAlwaysVisible
             navButtonsProps={{
               style: {
