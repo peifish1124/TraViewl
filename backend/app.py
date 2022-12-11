@@ -1,5 +1,5 @@
 from crypt import methods
-from flask import Flask, jsonify, render_template
+from flask import Flask, jsonify, render_template, request
 from database import connect, getHotelContent, getHotelStars, getHotels, getHotelById, getHotelAspect, getHotelAmount
 from bson.json_util import dumps
 from flask_cors import CORS
@@ -12,6 +12,7 @@ app.config['JSON_AS_ASCII'] = False
 CORS(app, resources={r"/.*": {"origins": ["*"]}})
 
 @app.route('/')
+@app.route('/hotelDetail')
 def index():
     return render_template('index.html')
 
