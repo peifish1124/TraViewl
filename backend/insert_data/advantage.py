@@ -11,15 +11,15 @@ db = connect()
 advantage = db.Advantage
 hotel = db.Hotel
 
-def insert_advantage(path='../data/keywords_zh_with_count.xlsx'):
+def insert_advantage(path='../data/advantage.xlsx'):
     df = pd.read_excel(path)
-    df = df[['name', 'good']]
+    df = df[['name', 'advantage']]
 
     for idx, row in df.iterrows():
         name = row['name']
         ids = []
         
-        for term in row['good'].split():
+        for term in row['advantage'].split():
             # insert
             query = advantage.find_one({'text': term}, {'text': 0})
             if query:
