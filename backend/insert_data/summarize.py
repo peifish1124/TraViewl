@@ -6,7 +6,7 @@ import pandas as pd
 from database import connect
 
 db = connect()
-df = pd.read_csv('data/summarize_1.csv')
+df = pd.read_csv('data/summarize_best.csv')
 
 hotel = db.Hotel
 count = 0
