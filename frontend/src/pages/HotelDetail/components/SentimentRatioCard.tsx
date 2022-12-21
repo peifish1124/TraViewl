@@ -202,10 +202,10 @@ export function SentimentRatioCard(props: SentimentRatioCardProps) {
   };
 
   return (
-    <Card style={{ flex: 1, height: 1000, maxHeight: 1000 }}>
+    <Card style={{ flex: 1, height: 1200, maxHeight: 1200 }}>
       <Title style={{ paddingBottom: 0 }}>面向情感</Title>
       <Main disableOverflow={true}>
-        <Wrap style={{ height: "300px" }}>
+        <Wrap style={{ height: "450px" }}>
           <SideDiv style={{ flex: 1, padding: "0 40px" }}>
             <ToggleButtonGroup
               color="info"
@@ -222,11 +222,11 @@ export function SentimentRatioCard(props: SentimentRatioCardProps) {
             </ToggleButtonGroup>
             <div style={{ margin: "1.5em 1em 0 1em" }}>
               <b>正向評論摘要</b>
-              <p>{summarize ? summarize[aspect + "_正"] : null}</p>
+              <div style={{width: '30em', height: '5em', overflow: 'scroll', marginBottom: '1.5em'}} >{summarize ? summarize[aspect + "_正"] : null}</div>
               <b>中性評論摘要</b>
-              <p>{summarize ? summarize[aspect + "_中"] : null}</p>
+              <div style={{width: '30em', height: '5em', overflow: 'scroll', marginBottom: '1.5em'}} >{summarize ? summarize[aspect + "_中"] : null}</div>
               <b>負向評論摘要</b>
-              <p>{summarize ? summarize[aspect + "_負"] : null}</p>
+              <div style={{width: '30em', height: '5em', overflow: 'scroll', marginBottom: '1.5em'}} >{summarize ? summarize[aspect + "_負"] : null}</div>
             </div>
           </SideDiv>
           <SideDiv style={{ flex: 1, alignItems: "center" }}>
