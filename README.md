@@ -39,7 +39,8 @@ hotel review search system
    `curl http://127.0.0.1:8081/helloWorld`
 
 ### 其他
-
+- use the venv in jupyter notebook \
+   https://anbasile.github.io/posts/2017-06-25-jupyter-venv/
 - save packages in requirements.txt \
    `pip3 freeze > requirements.txt `
 - activate virtual env \
