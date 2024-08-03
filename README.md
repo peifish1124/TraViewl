@@ -2,6 +2,19 @@
 
 hotel review search system
 
+# Methods Introduction
+
+![alt text](image-1.png)
+![alt text](image.png)
+
+# Demo
+
+![alt text](image-2.png)
+![alt text](image-3.png)
+![alt text](image-4.png)
+![alt text](image-5.png)
+![alt text](image-6.png)
+
 # Create history
 
 ## frontend
@@ -10,14 +23,14 @@ hotel review search system
 
 ## backend
 
-1. 先載 pyenv(https://www.maxlist.xyz/2020/04/01/python-pyenv-virtualenv/)，在pyenv中下載 python3.9.2 的版本 \
-2. 建置 python3.9 的環境 \
+1. Download pyenv(https://www.maxlist.xyz/2020/04/01/python-pyenv-virtualenv/), then download python3.9.2 in pyenv \
+2. Create the environment for python3.9 \
    `python3 -m virtualenv -p ~/.pyenv/versions/3.9.2/bin/python TraViewl-backend-env`
-3. 進入虛擬環境 \
+3. Get into the virtual environment \
    `source TraViewl-backend-env/bin/activate`
-4. 下載 flask
+4. Download flask
    ` pip3 install flask`
-5. 下載 psycopg2
+5. Download psycopg2
    `pip3 install psycopg2-binary`
    <br>
    <br>
@@ -30,15 +43,16 @@ hotel review search system
 
 ## backend
 
-1. 照 create history 1,2,3 步驟先建置並進入 python 虛擬環境
-2. 下載所需套件
+1. Follow the steps 1, 2, 3 in create history, create the virtual environment
+2. Download packages
    ` pip3 install -r requirements.txt`
-3. 打開後端
+3. Start the backend server
    ` python3 app.py`
-4. 測試（得到 hello world 即可）
+4. Test（you will get an response of "hello world" ）
    `curl http://127.0.0.1:8081/helloWorld`
 
-### 其他
+### Others
+
 - use the venv in jupyter notebook \
    https://anbasile.github.io/posts/2017-06-25-jupyter-venv/
 - save packages in requirements.txt \
